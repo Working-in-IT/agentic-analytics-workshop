@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Агентная аналитика для продактов</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-hover: #79c0ff;
+            --green: #3fb950;
+            --purple: #bc8cff;
+            --orange: #f0883e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        .hero { padding: 80px 0 60px; text-align: center; border-bottom: 1px solid var(--border); }
+        .hero-badge { display: inline-block; background: rgba(88,166,255,0.1); color: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 14px; margin-bottom: 24px; border: 1px solid rgba(88,166,255,0.2); }
+        .hero h1 { font-size: 2.5em; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+        .hero h1 span { color: var(--accent); }
+        .hero p { font-size: 1.2em; color: var(--text-muted); max-width: 600px; margin: 0 auto 32px; }
+        .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+        .btn-primary { background: var(--accent); color: #0d1117; }
+        .btn-primary:hover { background: var(--accent-hover); }
+        .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+        .btn-secondary:hover { border-color: var(--text-muted); }
+        section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+        section:last-child { border-bottom: none; }
+        h2 { font-size: 1.6em; margin-bottom: 32px; }
+        h2 span { color: var(--accent); }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+        .card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
+        .card-icon.blue { background: rgba(88,166,255,0.15); }
+        .card-icon.green { background: rgba(63,185,80,0.15); }
+        .card-icon.purple { background: rgba(188,140,255,0.15); }
+        .card-icon.orange { background: rgba(240,136,62,0.15); }
+        .card h3 { font-size: 1.05em; margin-bottom: 8px; }
+        .card p { color: var(--text-muted); font-size: 0.9em; }
+        .agenda-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+        .agenda-item:last-child { border-bottom: none; }
+        .agenda-time { min-width: 70px; color: var(--accent); font-weight: 600; font-size: 0.9em; }
+        .agenda-title { font-weight: 600; margin-bottom: 4px; }
+        .agenda-desc { color: var(--text-muted); font-size: 0.9em; }
+        .material-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; }
+        .material-info { display: flex; align-items: center; gap: 12px; }
+        .material-icon { font-size: 1.4em; }
+        .material-name { font-weight: 600; }
+        .material-desc { color: var(--text-muted); font-size: 0.85em; }
+        .material-row .btn { padding: 8px 16px; font-size: 14px; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+        .tool { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-decoration: none; color: var(--text); transition: border-color 0.2s; }
+        .tool:hover { border-color: var(--accent); }
+        .tool-name { font-weight: 600; margin-bottom: 4px; }
+        .tool-note { color: var(--text-muted); font-size: 0.85em; }
+        .tool-badge { display: inline-block; font-size: 0.75em; padding: 2px 8px; border-radius: 10px; margin-top: 8px; }
+        .badge-free { background: rgba(63,185,80,0.15); color: var(--green); }
+        .badge-vpn { background: rgba(240,136,62,0.15); color: var(--orange); }
+        footer { padding: 40px 0; text-align: center; color: var(--text-muted); font-size: 0.9em; }
+        footer a { color: var(--accent); text-decoration: none; }
+        @media (max-width: 600px) { .hero { padding: 48px 0 40px; } .hero h1 { font-size: 1.8em; } .material-row { flex-direction: column; gap: 12px; align-items: flex-start; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="hero">
+        <div class="hero-badge">Мастер-класс · 90 минут</div>
+        <h1><span>Агентная аналитика</span><br>для продактов</h1>
+        <p>Как AI-агент формулирует гипотезы, проверяет их кодом, анализирует фидбек — всё в одном диалоге</p>
+        <div class="hero-actions">
+            <a href="slides.html" class="btn btn-primary">▶ Слайды</a>
+            <a href="prompts.html" class="btn btn-secondary">📋 Промпты для заданий</a>
+        </div>
+    </header>
+    <section>
+        <h2>Чему <span>научитесь</span></h2>
+        <div class="cards">
+            <div class="card"><div class="card-icon blue">🔍</div><h3>Разведочный анализ в диалоге</h3><p>Загружать данные в агент и получать воронки, когорты и графики за минуты</p></div>
+            <div class="card"><div class="card-icon green">💡</div><h3>Генерация и проверка гипотез</h3><p>Просить агента формулировать гипотезы и тут же проверять их статистикой</p></div>
+            <div class="card"><div class="card-icon purple">💬</div><h3>Анализ текстового фидбека</h3><p>Кластеризовать отзывы, связывать с поведением пользователей, находить тренды</p></div>
+            <div class="card"><div class="card-icon orange">🚀</div><h3>Продуктовые рекомендации</h3><p>Собирать инсайты в записку для product review с цифрами и аргументами</p></div>
+        </div>
+    </section>
+    <section>
+        <h2>Программа</h2>
+        <div>
+            <div class="agenda-item"><div class="agenda-time">20 мин</div><div><div class="agenda-title">Вау-эффект: живое демо</div><div class="agenda-desc">Загружаем данные FitFlow → агент предлагает гипотезы → проверяет → визуализирует → даёт рекомендации</div></div></div>
+            <div class="agenda-item"><div class="agenda-time">15 мин</div><div><div class="agenda-title">Под капотом</div><div class="agenda-desc">Что такое агентный подход, чем он отличается от обычного промптинга</div></div></div>
+            <div class="agenda-item"><div class="agenda-time">40 мин</div><div><div class="agenda-title">Совместная практика</div><div class="agenda-desc">3 задания с нарастающей сложностью</div></div></div>
+            <div class="agenda-item"><div class="agenda-time">10 мин</div><div><div class="agenda-title">Q&amp;A</div><div class="agenda-desc">Вопросы, обсуждение, ссылки на материалы</div></div></div>
+        </div>
+    </section>
+    <section>
+        <h2>Материалы</h2>
+        <div class="material-row"><div class="material-info"><div class="material-icon">📊</div><div><div class="material-name">Датасет FitFlow</div><div class="material-desc">107K событий + 1100 отзывов</div></div></div><a href="data/fitflow_events.csv" class="btn btn-secondary" download>events.csv</a></div>
+        <div class="material-row"><div class="material-info"><div class="material-icon">💬</div><div><div class="material-name">Обратная связь</div><div class="material-desc">Отзывы пользователей с рейтингами</div></div></div><a href="data/fitflow_feedback.csv" class="btn btn-secondary" download>feedback.csv</a></div>
+        <div class="material-row"><div class="material-info"><div class="material-icon">📋</div><div><div class="material-name">Промпты для заданий</div><div class="material-desc">Системный промпт + 3 задания + бонус</div></div></div><a href="prompts.html" class="btn btn-primary">Открыть</a></div>
+    </section>
+    <section>
+        <h2>Что <span>подготовить</span></h2>
+        <p style="color: var(--text-muted); margin-bottom: 24px;">Вам нужен любой AI-инструмент, который умеет работать с файлами и писать код. Выберите один из:</p>
+        <div class="tools-grid">
+            <a href="https://aistudio.google.com/" target="_blank" class="tool"><div class="tool-name">Google AI Studio</div><div class="tool-note">Gemini 2.5 Pro</div><span class="tool-badge badge-free">Бесплатно, без VPN</span></a>
+            <a href="https://cursor.com/" target="_blank" class="tool"><div class="tool-name">Cursor</div><div class="tool-note">AI-редактор кода</div><span class="tool-badge badge-free">Бесплатно, без VPN</span></a>
+            <a href="https://claude.ai/" target="_blank" class="tool"><div class="tool-name">Claude.ai</div><div class="tool-note">Anthropic Claude</div><span class="tool-badge badge-vpn">Нужен VPN</span></a>
+            <a href="https://windsurf.com/" target="_blank" class="tool"><div class="tool-name">Windsurf</div><div class="tool-note">AI-редактор</div><span class="tool-badge badge-free">Бесплатно, без VPN</span></a>
+        </div>
+    </section>
+</div>
+<footer><div class="container"><a href="https://github.com/Working-in-IT/agentic-analytics-workshop" target="_blank">GitHub</a> · Working in IT</div></footer>
+</body>
+</html>
