@@ -5,134 +5,330 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Промпты — Агентная аналитика</title>
     <style>
-        :root { --bg: #0d1117; --surface: #161b22; --border: #30363d; --text: #e6edf3; --text-muted: #8b949e; --accent: #58a6ff; --green: #3fb950; --purple: #bc8cff; --orange: #f0883e; }
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --green: #3fb950;
+            --purple: #bc8cff;
+            --orange: #f0883e;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
         .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
-        header { padding: 48px 0 32px; border-bottom: 1px solid var(--border); }
-        header h1 { font-size: 1.8em; margin-bottom: 8px; } header h1 span { color: var(--accent); }
+
+        header {
+            padding: 48px 0 32px;
+            border-bottom: 1px solid var(--border);
+        }
+        header h1 { font-size: 1.8em; margin-bottom: 8px; }
+        header h1 span { color: var(--accent); }
         header p { color: var(--text-muted); }
-        .back-link { display: inline-block; color: var(--accent); text-decoration: none; margin-bottom: 16px; font-size: 0.9em; }
-        .instructions { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 8px; padding: 20px 24px; margin: 24px 0; font-size: 0.9em; }
-        .instructions ol { padding-left: 20px; } .instructions li { margin: 4px 0; }
-        .section-title { font-size: 1.3em; margin: 48px 0 8px; color: var(--accent); }
-        .section-desc { color: var(--text-muted); margin-bottom: 24px; font-size: 0.9em; }
-        .prompt-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
-        .prompt-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid var(--border); }
-        .prompt-label { font-weight: 600; font-size: 0.95em; }
-        .copy-btn { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 6px 14px; border-radius: 6px; font-size: 0.8em; cursor: pointer; transition: all 0.2s; }
-        .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
-        .copy-btn.copied { border-color: var(--green); color: var(--green); }
-        .prompt-body { padding: 16px 20px; font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em; line-height: 1.7; white-space: pre-wrap; }
-        .tips-section { margin: 48px 0; } .tips-section h2 { color: var(--accent); margin-bottom: 16px; }
-        .tip-row { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.9em; }
-        .tip-situation { color: var(--text-muted); min-width: 180px; } .tip-prompt { color: var(--accent); }
-        footer { padding: 32px 0; text-align: center; color: var(--text-muted); font-size: 0.85em; border-top: 1px solid var(--border); }
+        .back-link {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            margin-bottom: 16px;
+            font-size: 0.9em;
+        }
+        .back-link:hover { text-decoration: underline; }
+
+        .instructions {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 24px 0;
+            font-size: 0.9em;
+        }
+        .instructions ol { padding-left: 20px; }
+        .instructions li { margin: 4px 0; }
+
+        .section-title {
+            font-size: 1.3em;
+            margin: 48px 0 8px;
+            color: var(--accent);
+        }
+        .section-desc {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 0.9em;
+        }
+
+        .prompt-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .prompt-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .prompt-label {
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        .copy-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .copy-btn.copied {
+            border-color: var(--green);
+            color: var(--green);
+        }
+        .prompt-body {
+            padding: 16px 20px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.85em;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            color: #e6edf3;
+        }
+
+        .tips-section { margin: 48px 0; }
+        .tips-section h2 { color: var(--accent); margin-bottom: 16px; }
+        .tip-row {
+            display: flex;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9em;
+        }
+        .tip-row:last-child { border-bottom: none; }
+        .tip-situation { color: var(--text-muted); min-width: 180px; flex-shrink: 0; }
+        .tip-prompt { color: var(--accent); }
+
+        footer {
+            padding: 32px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85em;
+            border-top: 1px solid var(--border);
+        }
         footer a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 600px) {
+            .tip-row { flex-direction: column; gap: 4px; }
+            .tip-situation { min-width: auto; }
+        }
     </style>
 </head>
 <body>
 <div class="container">
+
     <header>
-        <a href="index.html" class="back-link">← На главную</a>
+        <a href="index.html" class="back-link">&larr; На главную</a>
         <h1>Промпты для <span>заданий</span></h1>
-        <p>Копируйте промпты и вставляйте в свой AI-инструмент</p>
+        <p>Копируйте промпты и вставляйте в Qwen Code</p>
     </header>
-    <div class="instructions"><ol>
-        <li>Загрузите в агент файлы <strong>fitflow_events.csv</strong> и <strong>fitflow_feedback.csv</strong></li>
-        <li>Начните с <strong>Системного промпта</strong></li>
-        <li>Далее последовательно отправляйте промпты из заданий</li>
-        <li>Не бойтесь уточнять и переформулировать</li>
-    </ol></div>
-    <h2 class="section-title">🛠 Системный промпт</h2>
-    <p class="section-desc">Отправьте первым</p>
-    <div class="prompt-card"><div class="prompt-header"><span class="prompt-label">Системный промпт</span><button class="copy-btn" onclick="copyPrompt(this)">Копировать</button></div><div class="prompt-body">Ты — опытный продуктовый аналитик. Я загружаю тебе данные приложения FitFlow — мобильного фитнес-приложения по подписке (видео-тренировки: йога, HIIT, силовые, кардио, медитации).
 
-Платформы: iOS, Android, Web
-Монетизация: trial → monthly → annual
-Рынок: Россия, 2025 год
+    <div class="instructions">
+        <ol>
+            <li>Скачайте и распакуйте <a href="fitflow-workshop.zip" download style="color: var(--accent);">папку воркшопа</a> (данные + контекст для агента уже внутри)</li>
+            <li>Откройте папку в VS Code с Qwen Code</li>
+            <li>Последовательно отправляйте промпты из заданий в чат Qwen Code</li>
+            <li>Не бойтесь уточнять и переформулировать — это и есть агентный подход</li>
+        </ol>
+    </div>
 
-Файлы:
-- fitflow_events.csv — продуктовые события (регистрации, онбординг, тренировки, отмены подписок)
-- fitflow_feedback.csv — текстовые отзывы пользователей с оценками
+    <!-- SYSTEM PROMPT -->
+    <h2 class="section-title">&#128736; Системный промпт</h2>
+    <p class="section-desc">Уже встроен в файл CLAUDE.md в папке воркшопа — Qwen Code подхватит его автоматически. Отправлять вручную не нужно.</p>
 
-Твоя задача — помогать мне анализировать данные, формулировать и проверять гипотезы, находить инсайты для улучшения продукта.
+    <div class="prompt-card">
+        <div class="prompt-header">
+            <span class="prompt-label">Начало работы</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Копировать</button>
+        </div>
+        <div class="prompt-body">Изучи структуру обоих файлов и дай краткий обзор: сколько пользователей, период, какие события, распределение оценок.</div>
+    </div>
 
-Правила работы:
-- Пиши и выполняй код на Python (pandas, matplotlib/seaborn)
-- Все графики — с подписями на русском языке
-- Каждый анализ заканчивай выводом: что нашли → что это значит → что делать
-- Если данных недостаточно — скажи прямо
+    <!-- TASK 1 -->
+    <h2 class="section-title">&#128202; Задание 1: Разведочный анализ</h2>
+    <p class="section-desc">10 минут. Цель — понять, что вообще происходит в продукте.</p>
 
-Начни с того, что изучи структуру обоих файлов и дай краткий обзор.</div></div>
-
-    <h2 class="section-title">📊 Задание 1: Разведочный анализ</h2>
-    <p class="section-desc">10 минут</p>
-    <div class="prompt-card"><div class="prompt-header"><span class="prompt-label">1.1 — Воронка онбординга</span><button class="copy-btn" onclick="copyPrompt(this)">Копировать</button></div><div class="prompt-body">Построй воронку онбординга:
+    <div class="prompt-card">
+        <div class="prompt-header">
+            <span class="prompt-label">1.1 — Воронка онбординга</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Копировать</button>
+        </div>
+        <div class="prompt-body">Построй воронку онбординга:
 регистрация → профиль (step 1) → цели (step 2) → онбординг завершён
 
-Покажи конверсию каждого шага в процентах. Разбей по платформам (ios / android / web) — есть ли разница?</div></div>
-    <div class="prompt-card"><div class="prompt-header"><span class="prompt-label">1.2 — Обзор оттока</span><button class="copy-btn" onclick="copyPrompt(this)">Копировать</button></div><div class="prompt-body">Посчитай общий churn rate. Построй распределение: на какой день после регистрации пользователи отменяют подписку? Есть ли характерные пики?</div></div>
-    <div class="prompt-card"><div class="prompt-header"><span class="prompt-label">1.3 — Активность по тренировкам</span><button class="copy-btn" onclick="copyPrompt(this)">Копировать</button></div><div class="prompt-body">Какие типы тренировок самые популярные? Какой процент начатых тренировок доводится до конца (completed)? Есть ли разница по типам?</div></div>
+Покажи конверсию каждого шага в процентах. Разбей по платформам (ios / android / web) — есть ли разница?</div>
+    </div>
 
-    <h2 class="section-title">💡 Задание 2: Гипотезы и проверка</h2>
-    <p class="section-desc">15 минут</p>
-    <div class="prompt-card"><div class="prompt-header"><span class="prompt-label">2.1 — Генерация гипотез</span><button class="copy-btn" onclick="copyPrompt(this)">Копировать</button></div><div class="prompt-body">На основе всего, что ты уже видел в данных, сформулируй 5 гипотез о причинах оттока пользователей. Для каждой гипотезы укажи:
+    <div class="prompt-card">
+        <div class="prompt-header">
+            <span class="prompt-label">1.2 — Обзор оттока</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Копировать</button>
+        </div>
+        <div class="prompt-body">Посчитай общий churn rate. Построй распределение: на какой день после регистрации пользователи отменяют подписку? Есть ли характерные пики?</div>
+    </div>
+
+    <div class="prompt-card">
+        <div class="prompt-header">
+            <span class="prompt-label">1.3 — Активность по тренировкам</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Копировать</button>
+        </div>
+        <div class="prompt-body">Какие типы тренировок самые популярные? Какой процент начатых тренировок доводится до конца (completed)? Есть ли разница по типам?</div>
+    </div>
+
+    <!-- TASK 2 -->
+    <h2 class="section-title">&#128161; Задание 2: Гипотезы и проверка</h2>
+    <p class="section-desc">15 минут. Цель — научиться просить агента генерировать гипотезы и тут же проверять их данными.</p>
+
+    <div class="prompt-card">
+        <div class="prompt-header">
+            <span class="prompt-label">2.1 — Генерация гипотез</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Копировать</button>
+        </div>
+        <div class="prompt-body">На основе всего, что ты уже видел в данных, сформулируй 5 гипотез о причинах оттока пользователей. Для каждой гипотезы укажи:
 - Формулировку
 - Как проверить (какие данные и метрики посмотреть)
-- Ожидаемый результат, если гипотеза верна</div></div>
-    <div class="prompt-card"><div class="prompt-header"><span class="prompt-label">2.2 — Онбординг и отток</span><button class="copy-btn" onclick="copyPrompt(this)">Копировать</button></div><div class="prompt-body">Проверь гипотезу: пользователи, не завершившие онбординг, уходят значительно чаще.
+- Ожидаемый результат, если гипотеза верна</div>
+    </div>
 
-Посчитай churn rate для двух групп: завершивших и не завершивших онбординг. Покажи разницу на графике. Проведи статистический тест — различие значимо?</div></div>
-    <div class="prompt-card"><div class="prompt-header"><span class="prompt-label">2.3 — Каналы привлечения</span><button class="copy-btn" onclick="copyPrompt(this)">Копировать</button></div><div class="prompt-body">Разбей пользователей по каналу привлечения (channel из properties события registration). Для каждого канала посчитай:
+    <div class="prompt-card">
+        <div class="prompt-header">
+            <span class="prompt-label">2.2 — Онбординг и отток</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Копировать</button>
+        </div>
+        <div class="prompt-body">Проверь гипотезу: пользователи, не завершившие онбординг, уходят значительно чаще.
+
+Посчитай churn rate для двух групп: завершивших и не завершивших онбординг. Покажи разницу в таблице. Проведи статистический тест — различие значимо?</div>
+    </div>
+
+    <div class="prompt-card">
+        <div class="prompt-header">
+            <span class="prompt-label">2.3 — Каналы привлечения</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Копировать</button>
+        </div>
+        <div class="prompt-body">Разбей пользователей по каналу привлечения (channel из properties события registration). Для каждого канала посчитай:
 - Конверсию в завершение онбординга
 - Churn rate
 - Среднее количество тренировок
 
-Какой канал даёт самых качественных пользователей?</div></div>
-    <div class="prompt-card"><div class="prompt-header"><span class="prompt-label">2.4 — Когортный анализ</span><button class="copy-btn" onclick="copyPrompt(this)">Копировать</button></div><div class="prompt-body">Построй когортный анализ retention по месяцу регистрации. Покажи таблицу и heatmap: какой процент пользователей каждой когорты активен на Day 7, Day 14, Day 30?</div></div>
+Какой канал даёт самых качественных пользователей? Какой — самых слабых?</div>
+    </div>
 
-    <h2 class="section-title">💬 Задание 3: Анализ обратной связи</h2>
-    <p class="section-desc">15 минут</p>
-    <div class="prompt-card"><div class="prompt-header"><span class="prompt-label">3.1 — Кластеризация отзывов</span><button class="copy-btn" onclick="copyPrompt(this)">Копировать</button></div><div class="prompt-body">Проанализируй текстовые отзывы из fitflow_feedback.csv. Раздели все отзывы на тематические кластеры. Для каждого:
+    <div class="prompt-card">
+        <div class="prompt-header">
+            <span class="prompt-label">2.4 — Когортный анализ</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Копировать</button>
+        </div>
+        <div class="prompt-body">Построй когортный анализ retention по месяцу регистрации. Покажи таблицу: какой процент пользователей каждой когорты всё ещё активен на Day 7, Day 14, Day 30? Есть ли когорты, которые ведут себя заметно хуже или лучше?</div>
+    </div>
+
+    <!-- TASK 3 -->
+    <h2 class="section-title">&#128172; Задание 3: Анализ обратной связи</h2>
+    <p class="section-desc">15 минут. Цель — показать, что агент умеет работать не только с числами, но и с текстом.</p>
+
+    <div class="prompt-card">
+        <div class="prompt-header">
+            <span class="prompt-label">3.1 — Кластеризация отзывов</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Копировать</button>
+        </div>
+        <div class="prompt-body">Проанализируй текстовые отзывы из fitflow_feedback.csv. Раздели все отзывы на тематические кластеры (категории жалоб и похвал). Для каждого кластера:
 - Название
 - Количество отзывов
 - Средний рейтинг
-- 2-3 примера
+- 2-3 характерных примера
 
-Покажи распределение на графике.</div></div>
-    <div class="prompt-card"><div class="prompt-header"><span class="prompt-label">3.2 — Связь отзывов с поведением</span><button class="copy-btn" onclick="copyPrompt(this)">Копировать</button></div><div class="prompt-body">Объедини данные отзывов с событиями. Пользователи, которые жалуются на технические проблемы — они завершали онбординг? На какой платформе чаще? А те, кто жалуется на контент — как долго они были активны?</div></div>
-    <div class="prompt-card"><div class="prompt-header"><span class="prompt-label">3.3 — Динамика проблем</span><button class="copy-btn" onclick="copyPrompt(this)">Копировать</button></div><div class="prompt-body">Покажи, как менялось количество негативных отзывов (рейтинг 1-2) по месяцам. Какие темы жалоб росли, какие снижались? Были ли всплески?</div></div>
+Покажи распределение в таблице.</div>
+    </div>
 
-    <h2 class="section-title">⭐ Бонус: Рекомендации</h2>
-    <p class="section-desc">Если осталось время</p>
-    <div class="prompt-card"><div class="prompt-header"><span class="prompt-label">Бонус — Записка для продакта</span><button class="copy-btn" onclick="copyPrompt(this)">Копировать</button></div><div class="prompt-body">Представь, что ты готовишь записку на product review. На основе ВСЕГО анализа сформулируй:
+    <div class="prompt-card">
+        <div class="prompt-header">
+            <span class="prompt-label">3.2 — Связь отзывов с поведением</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Копировать</button>
+        </div>
+        <div class="prompt-body">Объедини данные отзывов с событиями. Пользователи, которые жалуются на технические проблемы — они завершали онбординг? На какой платформе они чаще? А те, кто жалуется на контент — как долго они были активны?</div>
+    </div>
+
+    <div class="prompt-card">
+        <div class="prompt-header">
+            <span class="prompt-label">3.3 — Динамика проблем</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Копировать</button>
+        </div>
+        <div class="prompt-body">Покажи, как менялось количество негативных отзывов (рейтинг 1-2) по месяцам. Какие темы жалоб росли со временем, какие снижались? Были ли всплески — и с чем они могут быть связаны?</div>
+    </div>
+
+    <!-- BONUS -->
+    <h2 class="section-title">&#11088; Бонус: Рекомендации для product review</h2>
+    <p class="section-desc">Если осталось время — попробуйте собрать всё вместе.</p>
+
+    <div class="prompt-card">
+        <div class="prompt-header">
+            <span class="prompt-label">Бонус — Записка для продакта</span>
+            <button class="copy-btn" onclick="copyPrompt(this)">Копировать</button>
+        </div>
+        <div class="prompt-body">Представь, что ты готовишь для меня записку на product review. На основе ВСЕГО проведённого анализа — событий, оттока, воронки, отзывов — сформулируй:
 
 1. ТОП-3 проблемы продукта (с доказательствами из данных)
 2. ТОП-3 рекомендации — что делать в ближайший квартал
-3. Какие метрики мониторить
+3. Какие метрики мониторить, чтобы понять, что рекомендации работают
 
-Формат: структурированная записка на 1 страницу с ключевыми цифрами.</div></div>
+Формат: структурированная записка на 1 страницу с ключевыми цифрами.</div>
+    </div>
 
+    <!-- TIPS -->
     <div class="tips-section">
-        <h2>💡 Промпты-приёмы</h2>
+        <h2>&#128161; Промпты-приёмы</h2>
+        <p class="section-desc">Эти фразы помогают управлять агентом в процессе анализа</p>
         <div class="tip-row"><span class="tip-situation">Нужна детализация</span><span class="tip-prompt">«Разбей это ещё по платформам»</span></div>
         <div class="tip-row"><span class="tip-situation">Непонятный вывод</span><span class="tip-prompt">«Объясни проще, как будто я не аналитик»</span></div>
         <div class="tip-row"><span class="tip-situation">Хочешь проверить</span><span class="tip-prompt">«Покажи первые 10 строк, которые ты использовал»</span></div>
-        <div class="tip-row"><span class="tip-situation">Результат неожиданный</span><span class="tip-prompt">«Проверь, нет ли ошибки в фильтрации»</span></div>
+        <div class="tip-row"><span class="tip-situation">Результат неожиданный</span><span class="tip-prompt">«Это контринтуитивно. Проверь, нет ли ошибки»</span></div>
+        <div class="tip-row"><span class="tip-situation">Мало данных</span><span class="tip-prompt">«Достаточно ли выборки? Какой confidence?»</span></div>
+        <div class="tip-row"><span class="tip-situation">Нужна визуализация</span><span class="tip-prompt">«Покажи это в виде ASCII-диаграммы»</span></div>
         <div class="tip-row"><span class="tip-situation">Красивый отчёт</span><span class="tip-prompt">«Оформи как слайд — заголовок, цифра, вывод»</span></div>
-        <div class="tip-row"><span class="tip-situation">Просить думать</span><span class="tip-prompt">«Какой подход выберешь и почему?»</span></div>
+        <div class="tip-row"><span class="tip-situation">Просить думать</span><span class="tip-prompt">«Прежде чем считать — какой подход и почему?»</span></div>
     </div>
+
 </div>
-<footer><a href="index.html">← На главную</a> · <a href="slides.html">Слайды</a> · <a href="https://github.com/Working-in-IT/agentic-analytics-workshop" target="_blank">GitHub</a></footer>
+
+<footer>
+    <a href="index.html">&larr; На главную</a> &middot; <a href="slides.html">Слайды</a> &middot; <a href="https://github.com/Working-in-IT/agentic-analytics-workshop" target="_blank">GitHub</a>
+</footer>
+
 <script>
 function copyPrompt(btn) {
     const body = btn.closest('.prompt-card').querySelector('.prompt-body');
-    navigator.clipboard.writeText(body.textContent).then(() => {
+    const text = body.textContent;
+    navigator.clipboard.writeText(text).then(() => {
         btn.textContent = 'Скопировано!';
         btn.classList.add('copied');
-        setTimeout(() => { btn.textContent = 'Копировать'; btn.classList.remove('copied'); }, 2000);
+        setTimeout(() => {
+            btn.textContent = 'Копировать';
+            btn.classList.remove('copied');
+        }, 2000);
     });
 }
 </script>
-</body></html>
+</body>
+</html>

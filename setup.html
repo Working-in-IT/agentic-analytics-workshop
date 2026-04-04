@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Установка Qwen Code — Агентная аналитика</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-hover: #79c0ff;
+            --green: #3fb950;
+            --purple: #bc8cff;
+            --orange: #f0883e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+        header {
+            padding: 48px 0 32px;
+            border-bottom: 1px solid var(--border);
+        }
+        header h1 { font-size: 1.8em; margin-bottom: 8px; }
+        header p { color: var(--text-muted); margin-top: 8px; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent);
+            text-decoration: none;
+            margin-bottom: 16px;
+            font-size: 0.9em;
+        }
+        .back-link:hover { text-decoration: underline; }
+
+        /* OS Tabs */
+        .tabs {
+            display: flex;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 32px 0 0;
+            width: fit-content;
+        }
+        .tab-btn {
+            padding: 10px 24px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.95em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .tab-btn + .tab-btn {
+            border-left: 1px solid var(--border);
+        }
+        .tab-btn:hover {
+            background: var(--surface);
+            color: var(--text);
+        }
+        .tab-btn.active {
+            background: var(--accent);
+            color: #0d1117;
+        }
+
+        /* Content panels */
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* Steps */
+        .steps-section {
+            padding: 32px 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 32px;
+            align-items: flex-start;
+        }
+
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #0d1117;
+            font-weight: 700;
+            font-size: 0.85em;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .step-content { flex: 1; }
+
+        .step-content h3 {
+            font-size: 1.05em;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+            font-size: 0.93em;
+            margin-bottom: 8px;
+        }
+
+        .step-content p:last-child { margin-bottom: 0; }
+
+        .step-content a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .step-content a:hover { text-decoration: underline; }
+
+        .step-content .kbd {
+            display: inline-block;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1px 7px;
+            font-size: 0.85em;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            color: var(--text);
+        }
+
+        .step-content .note {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-size: 0.88em;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        .step-content .note strong {
+            color: var(--text);
+        }
+
+        .step-content .success {
+            border-left-color: var(--green);
+        }
+
+        /* FAQ */
+        .faq-section {
+            padding: 40px 0 60px;
+            border-top: 1px solid var(--border);
+        }
+
+        .faq-section h2 {
+            font-size: 1.3em;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .faq-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 16px 20px;
+            text-align: left;
+            color: var(--text);
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            font-family: inherit;
+            transition: background 0.15s;
+        }
+        .faq-question:hover { background: rgba(255,255,255,0.03); }
+
+        .faq-icon {
+            color: var(--text-muted);
+            font-size: 1.1em;
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+        .faq-answer {
+            display: none;
+            padding: 0 20px 16px;
+            color: var(--text-muted);
+            font-size: 0.9em;
+            border-top: 1px solid var(--border);
+            padding-top: 14px;
+        }
+
+        .faq-item.open .faq-answer { display: block; }
+
+        .faq-answer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .faq-answer a:hover { text-decoration: underline; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.4em; }
+            .step { gap: 14px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <a href="index.html" class="back-link">&#8592; На главную</a>
+        <h1>Установка <span style="color: var(--accent);">Qwen Code</span></h1>
+        <p>Настройте бесплатный AI-агент в VS Code за 5 минут</p>
+        <p style="color: var(--orange); font-weight: 600; margin-top: 12px;">&#9888; Пожалуйста, сделайте это до мастер-класса — на площадке времени на установку не будет</p>
+
+        <div class="tabs" role="tablist">
+            <button class="tab-btn active" role="tab" aria-selected="true" onclick="switchTab('macos', this)">macOS</button>
+            <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('windows', this)">Windows</button>
+        </div>
+    </header>
+
+    <!-- macOS -->
+    <div id="tab-macos" class="tab-panel active">
+        <div class="steps-section">
+
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h3>Установить VS Code</h3>
+                    <p>Скачайте установщик с <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a>.</p>
+                    <p>Откройте скачанный <strong>.dmg</strong>-файл и перетащите иконку VS Code в папку <strong>Applications</strong>.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h3>Установить расширение Qwen Code</h3>
+                    <p>Откройте VS Code, затем панель расширений: <span class="kbd">Cmd</span> + <span class="kbd">Shift</span> + <span class="kbd">X</span>.</p>
+                    <p>В строке поиска введите <strong>Qwen Code</strong> и нажмите <strong>Install</strong>.</p>
+                    <div class="note">
+                        Или установите напрямую из браузера:<br>
+                        <a href="https://marketplace.visualstudio.com/items?itemName=AlibabaCloud.tongyi-lingma" target="_blank">marketplace.visualstudio.com → Qwen Code (Tongyi Lingma)</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h3>Войти в аккаунт</h3>
+                    <p>Если у вас ещё нет аккаунта — зарегистрируйтесь на <a href="https://chat.qwen.ai/" target="_blank">chat.qwen.ai</a>.</p>
+                    <p>В VS Code кликните на иконку Qwen Code в боковой панели и нажмите <strong>Sign In</strong>. Откроется браузер — авторизуйтесь через свой аккаунт Qwen Chat.</p>
+                    <div class="note">
+                        <strong>Важно:</strong> после авторизации в браузере вернитесь в VS Code — он подхватит сессию автоматически.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h3>Скачать папку воркшопа</h3>
+                    <p>Скачайте <a href="fitflow-workshop.zip" download>fitflow-workshop.zip</a> и распакуйте в удобное место.</p>
+                    <p>Откройте эту папку в VS Code: <strong>File → Open Folder</strong> → выберите распакованную папку.</p>
+                    <div class="note">
+                        В папке уже есть данные для анализа и файл <strong>CLAUDE.md</strong> с контекстом — Qwen Code подхватит его автоматически.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                    <h3>Проверить, что всё работает</h3>
+                    <p>Откройте чат Qwen Code в боковой панели и напишите:</p>
+                    <div class="note success">
+                        Привет, напиши print('hello')
+                    </div>
+                    <p style="margin-top: 10px;">Если агент ответил и предложил код — установка прошла успешно.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Windows -->
+    <div id="tab-windows" class="tab-panel">
+        <div class="steps-section">
+
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h3>Установить VS Code</h3>
+                    <p>Скачайте установщик с <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a>.</p>
+                    <p>Запустите скачанный <strong>.exe</strong>-файл и следуйте инструкциям установщика.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h3>Установить расширение Qwen Code</h3>
+                    <p>Откройте VS Code, затем панель расширений: <span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">X</span>.</p>
+                    <p>В строке поиска введите <strong>Qwen Code</strong> и нажмите <strong>Install</strong>.</p>
+                    <div class="note">
+                        Или установите напрямую из браузера:<br>
+                        <a href="https://marketplace.visualstudio.com/items?itemName=AlibabaCloud.tongyi-lingma" target="_blank">marketplace.visualstudio.com → Qwen Code (Tongyi Lingma)</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h3>Войти в аккаунт</h3>
+                    <p>Если у вас ещё нет аккаунта — зарегистрируйтесь на <a href="https://chat.qwen.ai/" target="_blank">chat.qwen.ai</a>.</p>
+                    <p>В VS Code кликните на иконку Qwen Code в боковой панели и нажмите <strong>Sign In</strong>. Откроется браузер — авторизуйтесь через свой аккаунт Qwen Chat.</p>
+                    <div class="note">
+                        <strong>Важно:</strong> после авторизации в браузере вернитесь в VS Code — он подхватит сессию автоматически.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h3>Скачать папку воркшопа</h3>
+                    <p>Скачайте <a href="fitflow-workshop.zip" download>fitflow-workshop.zip</a> и распакуйте в удобное место.</p>
+                    <p>Откройте эту папку в VS Code: <strong>File → Open Folder</strong> → выберите распакованную папку.</p>
+                    <div class="note">
+                        В папке уже есть данные для анализа и файл <strong>CLAUDE.md</strong> с контекстом — Qwen Code подхватит его автоматически.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                    <h3>Проверить, что всё работает</h3>
+                    <p>Откройте чат Qwen Code в боковой панели и напишите:</p>
+                    <div class="note success">
+                        Привет, напиши print('hello')
+                    </div>
+                    <p style="margin-top: 10px;">Если агент ответил и предложил код — установка прошла успешно.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+        <h2>Проблемы?</h2>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                Расширение не находится в поиске
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                Попробуйте искать по альтернативным названиям: <strong>Qwen Code</strong> или <strong>Tongyi Lingma</strong>. Убедитесь, что у вас актуальная версия VS Code. Если не помогло — установите расширение напрямую через браузер: <a href="https://marketplace.visualstudio.com/items?itemName=AlibabaCloud.tongyi-lingma" target="_blank">ссылка на маркетплейс</a>.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                Не получается авторизоваться
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                Убедитесь, что у вас есть аккаунт на <a href="https://chat.qwen.ai/" target="_blank">chat.qwen.ai</a>. Если браузер открылся, но авторизация не прошла — попробуйте войти в Qwen Chat напрямую в браузере, а затем повторите Sign In из VS Code.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                Агент не отвечает или зависает
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                Проверьте интернет-соединение. Попробуйте перезапустить VS Code. Если проблема сохраняется — выйдите из аккаунта и войдите заново через Sign In.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function switchTab(os, btn) {
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+        });
+        document.getElementById('tab-' + os).classList.add('active');
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+    }
+
+    function toggleFaq(btn) {
+        const item = btn.closest('.faq-item');
+        item.classList.toggle('open');
+    }
+</script>
+</body>
+</html>

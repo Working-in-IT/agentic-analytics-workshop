@@ -8,40 +8,452 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/night.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
     <style>
-        :root { --r-background-color: #0d1117; --r-main-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; --r-heading-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; --r-main-color: #e6edf3; --r-heading-color: #e6edf3; --r-link-color: #58a6ff; }
-        .reveal { font-size: 32px; } .reveal h1 { font-size: 2.2em; } .reveal h2 { font-size: 1.6em; color: #58a6ff; } .reveal h3 { font-size: 1.2em; color: #bc8cff; }
-        .accent { color: #58a6ff; } .green { color: #3fb950; } .purple { color: #bc8cff; } .orange { color: #f0883e; } .muted { color: #8b949e; } .big { font-size: 2.5em; font-weight: 700; }
-        .reveal .box { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px 32px; margin: 16px 0; text-align: left; }
-        .reveal .box-accent { border-left: 4px solid #58a6ff; } .reveal .box-green { border-left: 4px solid #3fb950; } .reveal .box-purple { border-left: 4px solid #bc8cff; }
-        .reveal .columns { display: flex; gap: 24px; align-items: flex-start; } .reveal .col { flex: 1; }
-        .reveal .emoji-label { font-size: 0.85em; display: flex; align-items: flex-start; gap: 12px; margin: 12px 0; text-align: left; } .reveal .emoji-label .icon { font-size: 1.3em; flex-shrink: 0; }
-        .reveal .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.8em; } .reveal .comparison-table th { color: #58a6ff; border-bottom: 2px solid #30363d; padding: 8px 16px; text-align: left; } .reveal .comparison-table td { border-bottom: 1px solid #30363d; padding: 8px 16px; text-align: left; }
-        .reveal .step-num { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: #58a6ff; color: #0d1117; font-weight: 700; font-size: 0.7em; margin-right: 12px; flex-shrink: 0; }
+        :root {
+            --r-background-color: #0d1117;
+            --r-main-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            --r-heading-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            --r-main-color: #e6edf3;
+            --r-heading-color: #e6edf3;
+            --r-link-color: #58a6ff;
+        }
+        .reveal { font-size: 32px; }
+        .reveal h1 { font-size: 2.2em; }
+        .reveal h2 { font-size: 1.6em; color: #58a6ff; }
+        .reveal h3 { font-size: 1.2em; color: #bc8cff; }
+
+        .accent { color: #58a6ff; }
+        .green { color: #3fb950; }
+        .purple { color: #bc8cff; }
+        .orange { color: #f0883e; }
+        .muted { color: #8b949e; }
+        .big { font-size: 2.5em; font-weight: 700; }
+
+        .reveal .box {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px 32px;
+            margin: 16px 0;
+            text-align: left;
+        }
+        .reveal .box-accent {
+            border-left: 4px solid #58a6ff;
+        }
+        .reveal .box-green {
+            border-left: 4px solid #3fb950;
+        }
+        .reveal .box-purple {
+            border-left: 4px solid #bc8cff;
+        }
+
+        .reveal .columns {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+        .reveal .col { flex: 1; }
+
+        .reveal .emoji-label {
+            font-size: 0.85em;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 12px 0;
+            text-align: left;
+        }
+        .reveal .emoji-label .icon { font-size: 1.3em; flex-shrink: 0; }
+
+        .reveal pre {
+            width: 100%;
+            font-size: 0.55em;
+            box-shadow: none;
+        }
+        .reveal pre code {
+            background: #161b22;
+            border-radius: 8px;
+            padding: 16px;
+            max-height: 400px;
+        }
+
+        .reveal .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8em;
+        }
+        .reveal .comparison-table th {
+            color: #58a6ff;
+            border-bottom: 2px solid #30363d;
+            padding: 8px 16px;
+            text-align: left;
+        }
+        .reveal .comparison-table td {
+            border-bottom: 1px solid #30363d;
+            padding: 8px 16px;
+            text-align: left;
+        }
+
+        .reveal .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #58a6ff;
+            color: #0d1117;
+            font-weight: 700;
+            font-size: 0.7em;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .close-btn {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 100;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(22, 27, 34, 0.8);
+            border: 1px solid #30363d;
+            color: #8b949e;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .close-btn:hover {
+            background: #30363d;
+            color: #e6edf3;
+        }
     </style>
 </head>
 <body>
-<div class="reveal"><div class="slides">
-    <section><h1><span class="accent">Агентная аналитика</span><br>для продактов</h1><p class="muted" style="margin-top:24px">Мастер-класс · 90 минут</p></section>
-    <section><h2>План</h2><div class="emoji-label"><span class="icon">🎤</span><div><strong>Вау-эффект</strong> — живое демо <span class="muted">(20 мин)</span></div></div><div class="emoji-label"><span class="icon">🛠</span><div><strong>Под капотом</strong> — как это работает <span class="muted">(15 мин)</span></div></div><div class="emoji-label"><span class="icon">💻</span><div><strong>Практика</strong> — 3 задания <span class="muted">(40 мин)</span></div></div><div class="emoji-label"><span class="icon">❓</span><div><strong>Q&A</strong> <span class="muted">(10 мин)</span></div></div></section>
-    <section><section><h2>Часть 1</h2><p class="big">🎤 Вау-эффект</p><p class="muted">Живое демо на реальном продукте</p></section>
-    <section><h2>Знакомьтесь: FitFlow</h2><div class="box"><p>Мобильное фитнес-приложение по подписке</p><div class="columns" style="margin-top:16px"><div class="col"><div class="emoji-label"><span class="icon">🏃</span><div>Видео-тренировки: йога, HIIT, силовые, кардио</div></div><div class="emoji-label"><span class="icon">📱</span><div>iOS, Android, Web</div></div></div><div class="col"><div class="emoji-label"><span class="icon">💰</span><div>trial → monthly → annual</div></div><div class="emoji-label"><span class="icon">🇷🇺</span><div>Россия, 2025</div></div></div></div></div></section>
-    <section><h2>Данные</h2><div class="columns"><div class="col"><div class="box box-accent"><h3>📊 events.csv</h3><p style="font-size:0.8em"><span class="accent">107 000</span> событий<br><span class="accent">3 000</span> пользователей<br>12 месяцев</p></div></div><div class="col"><div class="box box-green"><h3>💬 feedback.csv</h3><p style="font-size:0.8em"><span class="green">1 100</span> отзывов<br>На русском<br>Рейтинги 1-5</p></div></div></div></section>
-    <section><h2>Что сейчас произойдёт</h2><div class="emoji-label"><span class="step-num">1</span><div>Загружаем данные в AI-агент</div></div><div class="emoji-label fragment"><span class="step-num">2</span><div>Агент изучает структуру</div></div><div class="emoji-label fragment"><span class="step-num">3</span><div>Строит воронки, retention</div></div><div class="emoji-label fragment"><span class="step-num">4</span><div>Формулирует гипотезы</div></div><div class="emoji-label fragment"><span class="step-num">5</span><div>Проверяет кодом + статтестами</div></div><div class="emoji-label fragment"><span class="step-num">6</span><div>Кластеризует отзывы</div></div><div class="emoji-label fragment"><span class="step-num">7</span><div>Рекомендации с цифрами</div></div></section>
-    <section data-background-color="#161b22"><h2 style="color:#f0883e">📺 Демо</h2><p class="muted">Переключаемся на экран с агентом</p></section></section>
-    <section><section><h2>Часть 2</h2><p class="big">🛠 Под капотом</p><p class="muted">Чем агент отличается от чат-бота</p></section>
-    <section><h2>Обычный промптинг vs Агент</h2><table class="comparison-table"><tr><th></th><th>Чат-бот</th><th class="accent">Агент</th></tr><tr><td>Код</td><td>Пишет, но не запускает</td><td class="green">Пишет и выполняет</td></tr><tr><td>Данные</td><td>«Расскажи про данные»</td><td class="green">Загружает, парсит, считает</td></tr><tr><td>Итерация</td><td>Один вопрос — один ответ</td><td class="green">Цепочка шагов, уточнения</td></tr><tr><td>Ошибки</td><td>Галлюцинирует</td><td class="green">Видит ошибку → чинит → повторяет</td></tr><tr><td>Результат</td><td>Текст</td><td class="green">Цифры, графики, код</td></tr></table></section>
-    <section><h2>Как работает агент</h2><div class="box box-purple" style="font-size:0.85em"><p><span class="purple">Контекст</span> → задаёшь роль, описываешь продукт</p><p style="margin-top:8px"><span class="purple">Инструменты</span> → Python, файлы, браузер, API</p><p style="margin-top:8px"><span class="purple">Цикл</span> → думает → пишет код → выполняет → анализирует → повторяет</p></div><div class="fragment" style="margin-top:20px"><p class="muted" style="font-size:0.8em">По сути, junior-аналитик, которому не нужно спать</p></div></section>
-    <section><h2>Секрет успеха: контекст</h2><div class="columns"><div class="col"><div class="box" style="font-size:0.75em"><p class="muted">❌ Плохо</p><p style="margin-top:8px">«Проанализируй данные»</p></div></div><div class="col"><div class="box box-green" style="font-size:0.75em"><p class="green">✅ Хорошо</p><p style="margin-top:8px">«Ты — аналитик FitFlow. Фитнес по подписке, Россия. events.csv — 107K. Найди причины оттока.»</p></div></div></div></section>
-    <section><h2>3 принципа</h2><div class="emoji-label"><span class="step-num">1</span><div><strong class="accent">Контекст решает</strong><br><span class="muted" style="font-size:0.85em">Чем лучше описал продукт — тем точнее анализ</span></div></div><div class="emoji-label fragment"><span class="step-num">2</span><div><strong class="green">Итерация, не одноразовый запрос</strong><br><span class="muted" style="font-size:0.85em">Хороший анализ — диалог из 5-15 сообщений</span></div></div><div class="emoji-label fragment"><span class="step-num">3</span><div><strong class="purple">Доверяй, но проверяй</strong><br><span class="muted" style="font-size:0.85em">Агент может ошибиться — проси показать данные</span></div></div></section></section>
-    <section><section><h2>Часть 3</h2><p class="big">💻 Практика</p><p class="muted">Ваша очередь!</p></section>
-    <section><h2>Что вам нужно</h2><div class="emoji-label"><span class="step-num">1</span><div>Скачайте <span class="accent">events.csv</span> и <span class="accent">feedback.csv</span></div></div><div class="emoji-label"><span class="step-num">2</span><div>Откройте один из инструментов</div></div><div class="emoji-label"><span class="step-num">3</span><div>Зайдите на <a href="prompts.html" style="color:#58a6ff">страницу промптов</a></div></div></section>
-    <section><h2>Инструменты</h2><div class="columns" style="font-size:0.8em"><div class="col"><div class="box box-green"><h3>Google AI Studio</h3><p class="muted">Бесплатно, без VPN</p><p>Gemini 2.5 Pro</p></div></div><div class="col"><div class="box box-accent"><h3>Cursor / Windsurf</h3><p class="muted">Бесплатно, без VPN</p><p>Встроенный агент</p></div></div><div class="col"><div class="box box-purple"><h3>Claude.ai</h3><p class="muted">Нужен VPN</p><p>Лучший для текстов</p></div></div></div></section>
-    <section><h2>3 задания</h2><div class="emoji-label"><span class="step-num">1</span><div><strong>Разведочный анализ</strong> <span class="muted">(10 мин)</span><br><span style="font-size:0.85em">Воронка, отток, тренировки</span></div></div><div class="emoji-label"><span class="step-num">2</span><div><strong>Гипотезы и проверка</strong> <span class="muted">(15 мин)</span><br><span style="font-size:0.85em">Онбординг, каналы, когорты</span></div></div><div class="emoji-label"><span class="step-num">3</span><div><strong>Анализ фидбека</strong> <span class="muted">(15 мин)</span><br><span style="font-size:0.85em">Кластеризация, связь с поведением</span></div></div><p class="fragment muted" style="margin-top:20px;font-size:0.8em">⭐ Бонус: записка для product review</p></section>
-    <section data-background-color="#161b22"><h2 style="color:#3fb950">🚀 Поехали!</h2><p>Откройте <a href="prompts.html" style="color:#58a6ff">страницу промптов</a> и начинайте</p><p class="muted" style="margin-top:16px;font-size:0.8em">У вас 40 минут.</p></section></section>
-    <section><h2>❓ Вопросы?</h2><div class="box" style="text-align:center;margin-top:24px"><p>Все материалы:</p><p class="accent" style="font-size:1.1em;margin-top:8px">working-in-it.github.io/agentic-analytics-workshop</p></div></section>
-    <section><h1>Спасибо! 👋</h1><p class="muted" style="margin-top:16px">Три принципа на вынос:</p><p style="margin-top:12px"><span class="accent">Контекст</span> · <span class="green">Итерация</span> · <span class="purple">Проверка</span></p></section>
-</div></div>
+<a href="index.html" class="close-btn" title="На главную">&times;</a>
+<div class="reveal">
+<div class="slides">
+
+    <!-- TITLE -->
+    <section>
+        <h1><span class="accent">Агентная аналитика</span><br>для продактов</h1>
+        <p class="muted" style="margin-top: 24px;">Мастер-класс &middot; 90 минут</p>
+    </section>
+
+    <!-- AGENDA -->
+    <section>
+        <h2>План</h2>
+        <div class="emoji-label"><span class="icon">&#127916;</span><div><strong>Вау-эффект</strong> — живое демо агентного анализа <span class="muted">(20 мин)</span></div></div>
+        <div class="emoji-label"><span class="icon">&#128736;</span><div><strong>Под капотом</strong> — как это работает <span class="muted">(15 мин)</span></div></div>
+        <div class="emoji-label"><span class="icon">&#128187;</span><div><strong>Практика</strong> — 3 задания на ваших ноутбуках <span class="muted">(40 мин)</span></div></div>
+        <div class="emoji-label"><span class="icon">&#10067;</span><div><strong>Q&A</strong> — вопросы и ссылки <span class="muted">(10 мин)</span></div></div>
+    </section>
+
+    <!-- PART 1: WOW -->
+    <section>
+        <section>
+            <h2>Часть 1</h2>
+            <p class="big">&#127916; Вау-эффект</p>
+            <p class="muted">Живое демо на реальном (ну, почти) продукте</p>
+        </section>
+
+        <section>
+            <h2>Знакомьтесь: FitFlow</h2>
+            <div class="box">
+                <p>Мобильное фитнес-приложение по подписке</p>
+                <div style="margin-top: 16px;" class="columns">
+                    <div class="col">
+                        <div class="emoji-label"><span class="icon">&#127939;</span><div>Видео-тренировки: йога, HIIT, силовые, кардио, медитации</div></div>
+                        <div class="emoji-label"><span class="icon">&#128241;</span><div>iOS, Android, Web</div></div>
+                    </div>
+                    <div class="col">
+                        <div class="emoji-label"><span class="icon">&#128176;</span><div>trial &rarr; monthly &rarr; annual</div></div>
+                        <div class="emoji-label"><span class="icon">&#127479;&#127482;</span><div>Рынок: Россия, 2025</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Данные</h2>
+            <div class="columns">
+                <div class="col">
+                    <div class="box box-accent">
+                        <h3>&#128202; events.csv</h3>
+                        <p style="font-size:0.8em;"><span class="accent">107 000</span> событий<br><span class="accent">3 000</span> пользователей<br>12 месяцев</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="box box-green">
+                        <h3>&#128172; feedback.csv</h3>
+                        <p style="font-size:0.8em;"><span class="green">1 100</span> отзывов<br>На русском языке<br>С рейтингами 1-5</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Что сейчас произойдёт</h2>
+            <div class="emoji-label"><span class="step-num">1</span><div>Загружаем данные в AI-агент</div></div>
+            <div class="emoji-label fragment"><span class="step-num">2</span><div>Агент сам изучает структуру данных</div></div>
+            <div class="emoji-label fragment"><span class="step-num">3</span><div>Строит воронки, считает retention</div></div>
+            <div class="emoji-label fragment"><span class="step-num">4</span><div>Формулирует гипотезы об оттоке</div></div>
+            <div class="emoji-label fragment"><span class="step-num">5</span><div>Проверяет гипотезы кодом + статтестами</div></div>
+            <div class="emoji-label fragment"><span class="step-num">6</span><div>Кластеризует текстовые отзывы</div></div>
+            <div class="emoji-label fragment"><span class="step-num">7</span><div>Выдаёт рекомендации с цифрами</div></div>
+        </section>
+
+        <section data-background-color="#161b22">
+            <h2 style="color: #f0883e;">&#128250; Демо</h2>
+            <p class="muted">Переключаемся на экран с агентом</p>
+        </section>
+    </section>
+
+    <!-- PART 2: UNDER THE HOOD -->
+    <section>
+        <section>
+            <h2>Часть 2</h2>
+            <p class="big">&#128736; Под капотом</p>
+            <p class="muted">Чем агент отличается от чат-бота</p>
+        </section>
+
+        <section>
+            <h2>Обычный промптинг vs Агент</h2>
+            <table class="comparison-table">
+                <tr>
+                    <th></th>
+                    <th>Чат-бот</th>
+                    <th class="accent">Агент</th>
+                </tr>
+                <tr>
+                    <td>Код</td>
+                    <td>Пишет, но не запускает</td>
+                    <td class="green">Пишет и выполняет</td>
+                </tr>
+                <tr>
+                    <td>Данные</td>
+                    <td>«Расскажи про данные»</td>
+                    <td class="green">Загружает, парсит, считает</td>
+                </tr>
+                <tr>
+                    <td>Итерация</td>
+                    <td>Один вопрос &mdash; один ответ</td>
+                    <td class="green">Цепочка шагов, уточнения</td>
+                </tr>
+                <tr>
+                    <td>Ошибки</td>
+                    <td>Галлюцинирует</td>
+                    <td class="green">Видит ошибку &rarr; чинит &rarr; повторяет</td>
+                </tr>
+                <tr>
+                    <td>Результат</td>
+                    <td>Текст</td>
+                    <td class="green">Цифры, графики, код</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>Как работает агент</h2>
+            <div class="box box-purple" style="font-size: 0.85em;">
+                <p><span class="purple">Контекст</span> &rarr; задаёшь роль, описываешь продукт, метрики</p>
+                <p style="margin-top:8px"><span class="purple">Инструменты</span> &rarr; Python, файлы, браузер, API</p>
+                <p style="margin-top:8px"><span class="purple">Цикл</span> &rarr; думает &rarr; пишет код &rarr; выполняет &rarr; анализирует результат &rarr; повторяет</p>
+            </div>
+            <div class="fragment" style="margin-top: 20px;">
+                <p class="muted" style="font-size:0.8em;">По сути, это junior-аналитик, которому не нужно спать</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Секрет успеха: контекст</h2>
+            <div class="columns">
+                <div class="col">
+                    <div class="box" style="font-size:0.75em;">
+                        <p class="muted">&#10060; Плохо</p>
+                        <p style="margin-top:8px;">«Проанализируй данные»</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="box box-green" style="font-size:0.75em;">
+                        <p class="green">&#9989; Хорошо</p>
+                        <p style="margin-top:8px;">«Ты — продуктовый аналитик FitFlow. Приложение фитнес по подписке, Россия, 2025. Файл events.csv — 107K событий. Найди причины оттока и дай рекомендации.»</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>3 принципа</h2>
+            <div class="emoji-label">
+                <span class="step-num">1</span>
+                <div>
+                    <strong class="accent">Контекст решает</strong><br>
+                    <span style="font-size:0.85em" class="muted">Чем лучше описал продукт и цели — тем точнее анализ</span>
+                </div>
+            </div>
+            <div class="emoji-label fragment">
+                <span class="step-num">2</span>
+                <div>
+                    <strong class="green">Итерация, не одноразовый запрос</strong><br>
+                    <span style="font-size:0.85em" class="muted">Хороший анализ — это диалог из 5–15 сообщений</span>
+                </div>
+            </div>
+            <div class="emoji-label fragment">
+                <span class="step-num">3</span>
+                <div>
+                    <strong class="purple">Доверяй, но проверяй</strong><br>
+                    <span style="font-size:0.85em" class="muted">Агент может ошибиться — всегда проси показать данные</span>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- PART 3: PRACTICE -->
+    <section>
+        <section>
+            <h2>Часть 3</h2>
+            <p class="big">&#128187; Практика</p>
+            <p class="muted">Ваша очередь!</p>
+        </section>
+
+        <section>
+            <h2>Что вам нужно</h2>
+            <div class="emoji-label"><span class="step-num">1</span><div>Скачайте и распакуйте <span class="accent">fitflow-workshop.zip</span> с сайта</div></div>
+            <div class="emoji-label"><span class="step-num">2</span><div>Откройте папку в VS Code с <span class="accent">Qwen Code</span></div></div>
+            <div class="emoji-label"><span class="step-num">3</span><div>Зайдите на страницу <a href="prompts.html" style="color:#58a6ff;">промптов</a> — копируйте и вставляйте</div></div>
+        </section>
+
+        <section>
+            <h2>Инструмент</h2>
+            <div class="box box-accent" style="text-align: center;">
+                <h3>Qwen Code</h3>
+                <p class="muted">Расширение для VS Code</p>
+                <p>Бесплатный AI-агент от Alibaba Cloud</p>
+                <p class="muted" style="margin-top: 12px; font-size: 0.8em;">Инструкция по установке — на сайте мастер-класса</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3 задания</h2>
+            <div class="emoji-label">
+                <span class="step-num">1</span>
+                <div>
+                    <strong>Разведочный анализ</strong> <span class="muted">(10 мин)</span><br>
+                    <span style="font-size:0.85em">Воронка, отток, тренировки</span>
+                </div>
+            </div>
+            <div class="emoji-label">
+                <span class="step-num">2</span>
+                <div>
+                    <strong>Гипотезы и проверка</strong> <span class="muted">(15 мин)</span><br>
+                    <span style="font-size:0.85em">Онбординг vs отток, каналы, когорты</span>
+                </div>
+            </div>
+            <div class="emoji-label">
+                <span class="step-num">3</span>
+                <div>
+                    <strong>Анализ фидбека</strong> <span class="muted">(15 мин)</span><br>
+                    <span style="font-size:0.85em">Кластеризация отзывов, связь с поведением</span>
+                </div>
+            </div>
+            <p class="fragment muted" style="margin-top:20px; font-size:0.8em;">&#11088; Бонус: записка для product review</p>
+        </section>
+
+        <section>
+            <h2>Промпты-приёмы</h2>
+            <div style="font-size: 0.75em;">
+                <div class="box" style="padding: 12px 20px; margin: 8px 0;">&#128269; Нужна детализация &rarr; <span class="accent">«Разбей это ещё по платформам»</span></div>
+                <div class="box" style="padding: 12px 20px; margin: 8px 0;">&#129300; Непонятный вывод &rarr; <span class="accent">«Объясни проще, как будто я не аналитик»</span></div>
+                <div class="box" style="padding: 12px 20px; margin: 8px 0;">&#128270; Хочешь проверить &rarr; <span class="accent">«Покажи первые 10 строк, которые ты использовал»</span></div>
+                <div class="box" style="padding: 12px 20px; margin: 8px 0;">&#128200; Красивый отчёт &rarr; <span class="accent">«Оформи как слайд — заголовок, ключевая цифра, вывод»</span></div>
+                <div class="box" style="padding: 12px 20px; margin: 8px 0;">&#129504; Просить думать &rarr; <span class="accent">«Прежде чем считать — какой подход ты выберешь и почему?»</span></div>
+            </div>
+        </section>
+
+        <section data-background-color="#161b22">
+            <h2 style="color: #3fb950;">&#128640; Поехали!</h2>
+            <p>Откройте <a href="prompts.html" style="color:#58a6ff;">страницу промптов</a> и начинайте</p>
+            <p class="muted" style="margin-top:16px; font-size:0.8em;">У вас 40 минут. Поднимайте руку, если что-то не работает.</p>
+        </section>
+
+        <!-- CHECKPOINTS -->
+        <section>
+            <h2>&#9989; Чекпоинт: Задание 1</h2>
+            <p class="muted" style="margin-bottom: 20px;">Сверьте свои результаты с ожидаемыми</p>
+            <div class="box box-accent" style="font-size: 0.8em; text-align: left;">
+                <p><strong>Воронка онбординга:</strong></p>
+                <p>Регистрация &rarr; 100% &rarr; Профиль 100% &rarr; Цели <span class="accent">~71%</span> &rarr; Завершён <span class="accent">~60%</span></p>
+                <p style="margin-top: 8px;"><strong>По платформам:</strong> iOS <span class="green">~69%</span> &nbsp; Android <span class="orange">~51%</span> &nbsp; Web ~53%</p>
+            </div>
+            <div class="box box-green" style="font-size: 0.8em; text-align: left; margin-top: 12px;">
+                <p><strong>Отток:</strong> общий churn <span class="accent">~44%</span></p>
+                <p style="margin-top: 8px;"><strong>«Стена 3-го дня»:</strong> ~38% всех отмен — в первые 4 дня</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>&#9989; Чекпоинт: Задание 2</h2>
+            <p class="muted" style="margin-bottom: 20px;">Сверьте свои результаты с ожидаемыми</p>
+            <div class="box box-accent" style="font-size: 0.8em; text-align: left;">
+                <p><strong>Онбординг vs отток:</strong></p>
+                <p>Без онбординга — churn <span class="orange">~89%</span></p>
+                <p>С онбордингом — churn <span class="green">~63%</span></p>
+                <p style="margin-top: 8px;">Разница <strong>~26 п.п.</strong>, p &lt; 0.001</p>
+            </div>
+            <div class="box box-green" style="font-size: 0.8em; text-align: left; margin-top: 12px;">
+                <p><strong>Каналы:</strong> organic и referral — лучшая конверсия в онбординг</p>
+                <p style="margin-top: 4px;">Платные каналы (TikTok Ads, Instagram Ads) — худшая</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>&#9989; Чекпоинт: Задание 3</h2>
+            <p class="muted" style="margin-bottom: 20px;">Сверьте свои результаты с ожидаемыми</p>
+            <div class="box box-purple" style="font-size: 0.8em; text-align: left;">
+                <p><strong>Топ кластеров отзывов:</strong></p>
+                <p style="margin-top: 8px;">&#128308; Баги и краши — рейтинг <span class="orange">~1.9</span></p>
+                <p>&#128308; Цена и подписка — рейтинг <span class="orange">~2.0</span></p>
+                <p>&#128993; Интерфейс и UX — рейтинг ~2.5</p>
+                <p>&#128993; Мало контента — рейтинг ~3.2</p>
+                <p>&#128994; Похвала тренерам — рейтинг <span class="green">~4.4</span></p>
+                <p>&#128994; Общая похвала — рейтинг <span class="green">~4.0</span></p>
+            </div>
+        </section>
+    </section>
+
+    <!-- Q&A -->
+    <section>
+        <h2>&#10067; Вопросы?</h2>
+        <div class="box" style="text-align:center; margin-top: 24px;">
+            <p>Все материалы:</p>
+            <p class="accent" style="font-size: 1.1em; margin-top: 8px;">working-in-it.github.io/agentic-analytics-workshop</p>
+        </div>
+    </section>
+
+    <!-- THANK YOU -->
+    <section>
+        <h1>Спасибо! &#128075;</h1>
+        <p class="muted" style="margin-top: 16px;">Три принципа на вынос:</p>
+        <p style="margin-top: 12px;"><span class="accent">Контекст</span> &middot; <span class="green">Итерация</span> &middot; <span class="purple">Проверка</span></p>
+    </section>
+
+</div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
-<script>Reveal.initialize({hash:true,slideNumber:true,controls:true,progress:true,center:true,transition:'slide',plugins:[RevealHighlight]});</script>
-</body></html>
+<script>
+    Reveal.initialize({
+        hash: true,
+        slideNumber: true,
+        controls: true,
+        progress: true,
+        center: true,
+        transition: 'slide',
+        plugins: [ RevealHighlight ]
+    });
+</script>
+</body>
+</html>
