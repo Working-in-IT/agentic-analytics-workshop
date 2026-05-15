@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Агентная аналитика для продактов</title>
+    <title>Агентная аналитика для продактов — Podlodka ProductCrew</title>
     <style>
         :root {
             --bg: #0d1117;
@@ -55,7 +55,7 @@
         .hero p {
             font-size: 1.2em;
             color: var(--text-muted);
-            max-width: 600px;
+            max-width: 640px;
             margin: 0 auto 32px;
         }
         .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
@@ -81,6 +81,9 @@
         h2 { font-size: 1.6em; margin-bottom: 32px; }
         h2 span { color: var(--accent); }
 
+        /* Lead paragraph */
+        .lead { font-size: 1.05em; color: var(--text-muted); max-width: 720px; }
+
         /* Cards grid */
         .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
         .card {
@@ -105,6 +108,36 @@
         .card-icon.orange { background: rgba(240, 136, 62, 0.15); }
         .card h3 { font-size: 1.05em; margin-bottom: 8px; }
         .card p { color: var(--text-muted); font-size: 0.9em; }
+
+        /* A/B contrast block */
+        .ab-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .ab-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .ab-card.bare { border-left: 4px solid var(--orange); }
+        .ab-card.rich { border-left: 4px solid var(--green); }
+        .ab-card h3 { font-size: 1.1em; margin-bottom: 8px; }
+        .ab-card .ab-tag {
+            display: inline-block;
+            font-size: 0.75em;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .ab-card.bare .ab-tag { background: rgba(240, 136, 62, 0.15); color: var(--orange); }
+        .ab-card.rich .ab-tag { background: rgba(63, 185, 80, 0.15); color: var(--green); }
+        .ab-card p { color: var(--text-muted); font-size: 0.92em; margin-bottom: 12px; }
+        .ab-card a { color: var(--accent); text-decoration: none; font-size: 0.9em; font-family: 'SFMono-Regular', Consolas, Menlo, monospace; }
+        .ab-card a:hover { text-decoration: underline; }
 
         /* Agenda */
         .agenda-item {
@@ -140,30 +173,6 @@
         .material-desc { color: var(--text-muted); font-size: 0.85em; }
         .material-row .btn { padding: 8px 16px; font-size: 14px; }
 
-        /* Tools */
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-        .tool {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 20px;
-            text-decoration: none;
-            color: var(--text);
-            transition: border-color 0.2s;
-        }
-        .tool:hover { border-color: var(--accent); }
-        .tool-name { font-weight: 600; margin-bottom: 4px; }
-        .tool-note { color: var(--text-muted); font-size: 0.85em; }
-        .tool-badge {
-            display: inline-block;
-            font-size: 0.75em;
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-top: 8px;
-        }
-        .badge-free { background: rgba(63, 185, 80, 0.15); color: var(--green); }
-        .badge-vpn { background: rgba(240, 136, 62, 0.15); color: var(--orange); }
-
         /* Footer */
         footer {
             padding: 40px 0;
@@ -179,6 +188,7 @@
             .hero p { font-size: 1em; }
             .agenda-item { flex-direction: column; gap: 4px; }
             .material-row { flex-direction: column; gap: 12px; align-items: flex-start; }
+            .ab-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -186,37 +196,56 @@
 
 <div class="container">
     <header class="hero">
-        <div class="hero-badge">Мастер-класс &middot; 90 минут</div>
+        <div class="hero-badge">Podlodka ProductCrew &middot; 90 минут</div>
         <h1><span>Агентная аналитика</span><br>для продактов</h1>
-        <p>Как AI-агент формулирует гипотезы, проверяет их кодом, анализирует фидбек — всё в одном диалоге</p>
+        <p>Контекст продукта превращает AI-агента из улучшенного ChatGPT в аналитического партнёра. Покажем разницу на двух кейсах в двух репозиториях.</p>
         <div class="hero-actions">
-            <a href="slides.html" class="btn btn-primary">&#9654; Слайды</a>
-            <a href="prompts.html" class="btn btn-secondary">&#128203; Промпты для заданий</a>
+            <a href="setup.html" class="btn btn-primary">&#9881; Подготовка к воркшопу</a>
+            <a href="prompts.html" class="btn btn-secondary">&#128203; Промпты</a>
         </div>
     </header>
+
+    <section>
+        <h2>Что покажем</h2>
+        <p class="lead">Один и тот же AI-агент (Claude Code в VS Code), один и тот же датасет, один и тот же вопрос — но два репозитория с разным уровнем контекста. Сравните, как меняется ответ агента, когда у него есть описание продукта, словарь данных и набор аналитических скиллов.</p>
+        <div class="ab-grid">
+            <div class="ab-card bare">
+                <div class="ab-tag">МИНИМАЛЬНЫЙ КОНТЕКСТ</div>
+                <h3>fitflow-bare</h3>
+                <p>Только SQLite-база — без описания продукта, без словаря данных, без аналитических скиллов. Здесь агент работает как улучшенный ChatGPT над цифрами.</p>
+                <a href="https://github.com/Working-in-IT/fitflow-bare" target="_blank">github.com/Working-in-IT/fitflow-bare &rarr;</a>
+            </div>
+            <div class="ab-card rich">
+                <div class="ab-tag">БОГАТЫЙ КОНТЕКСТ</div>
+                <h3>fitflow-rich</h3>
+                <p>Та же SQLite-база плюс CLAUDE.md, PRODUCT_CONTEXT.md, словарь данных, описания доменных сущностей и набор из семи аналитических скиллов.</p>
+                <a href="https://github.com/Working-in-IT/fitflow-rich" target="_blank">github.com/Working-in-IT/fitflow-rich &rarr;</a>
+            </div>
+        </div>
+    </section>
 
     <section>
         <h2>Чему <span>научитесь</span></h2>
         <div class="cards">
             <div class="card">
                 <div class="card-icon blue">&#128269;</div>
-                <h3>Разведочный анализ в диалоге</h3>
-                <p>Загружать данные в агент и получать воронки, когорты и графики за минуты</p>
+                <h3>Видеть разницу с контекстом и без</h3>
+                <p>Один и тот же вопрос в двух репозиториях даёт generic-ответ vs product-grounded analysis</p>
             </div>
             <div class="card">
                 <div class="card-icon green">&#128161;</div>
-                <h3>Генерация и проверка гипотез</h3>
-                <p>Просить агента формулировать гипотезы и тут же проверять их статистикой</p>
+                <h3>Готовить репо под агента</h3>
+                <p>CLAUDE.md, PRODUCT_CONTEXT.md, словарь данных, скиллы — что куда класть, чтобы агент находил</p>
             </div>
             <div class="card">
                 <div class="card-icon purple">&#128172;</div>
-                <h3>Анализ текстового фидбека</h3>
-                <p>Кластеризовать отзывы, связывать с поведением пользователей, находить тренды</p>
+                <h3>Работать с числами и текстом</h3>
+                <p>Воронка онбординга со стат-проверкой и кластеризация NPS-отзывов на одном датасете</p>
             </div>
             <div class="card">
                 <div class="card-icon orange">&#128640;</div>
-                <h3>Продуктовые рекомендации</h3>
-                <p>Собирать инсайты в записку для product review с цифрами и аргументами</p>
+                <h3>Применять к своему продукту</h3>
+                <p>Заменить FitFlow на свои данные и контекст — оценка трудозатрат и пошаговый план</p>
             </div>
         </div>
     </section>
@@ -225,31 +254,38 @@
         <h2>Программа</h2>
         <div>
             <div class="agenda-item">
-                <div class="agenda-time">20 мин</div>
+                <div class="agenda-time">15 мин</div>
                 <div>
-                    <div class="agenda-title">Вау-эффект: живое демо</div>
-                    <div class="agenda-desc">Загружаем данные FitFlow &rarr; агент предлагает гипотезы &rarr; проверяет &rarr; визуализирует &rarr; даёт рекомендации</div>
+                    <div class="agenda-title">Что такое агентная аналитика и зачем она PM</div>
+                    <div class="agenda-desc">Чем агент отличается от чат-бота. Почему контекст продукта — главная инвестиция. Что в данных FitFlow.</div>
+                </div>
+            </div>
+            <div class="agenda-item">
+                <div class="agenda-time">25 мин</div>
+                <div>
+                    <div class="agenda-title">Демо 1 — Воронка онбординга (числа)</div>
+                    <div class="agenda-desc">Три акта: плохой промпт в bare-репо &rarr; хороший промпт в bare-репо &rarr; тот же вопрос в rich-репо. Видим, как контекст превращает технически верный ответ в продуктовое решение.</div>
                 </div>
             </div>
             <div class="agenda-item">
                 <div class="agenda-time">15 мин</div>
                 <div>
-                    <div class="agenda-title">Под капотом</div>
-                    <div class="agenda-desc">Что такое агентный подход, чем он отличается от обычного промптинга, как давать контекст</div>
+                    <div class="agenda-title">Демо 2 — Анализ NPS-фидбэка (текст)</div>
+                    <div class="agenda-desc">Проверяем тезис на другом типе данных: 231 отзыв на русском. Generic-кластеры vs привязанные к JTBD темы со связкой с retention.</div>
                 </div>
             </div>
             <div class="agenda-item">
-                <div class="agenda-time">40 мин</div>
+                <div class="agenda-time">25 мин</div>
                 <div>
-                    <div class="agenda-title">Совместная практика</div>
-                    <div class="agenda-desc">3 задания с нарастающей сложностью — участники работают на своих ноутбуках</div>
+                    <div class="agenda-title">Как перенести подход на свой продукт</div>
+                    <div class="agenda-desc">Пять шагов: что взять из rich-репо, как описать свой продукт, куда положить данные, какие скиллы пригодятся, как замерять разницу. Чек-лист и оценка трудозатрат.</div>
                 </div>
             </div>
             <div class="agenda-item">
                 <div class="agenda-time">10 мин</div>
                 <div>
                     <div class="agenda-title">Q&A</div>
-                    <div class="agenda-desc">Вопросы, обсуждение, ссылки на материалы</div>
+                    <div class="agenda-desc">Вопросы, ссылки на материалы, как продолжить после воркшопа.</div>
                 </div>
             </div>
         </div>
@@ -257,20 +293,42 @@
 
     <section>
         <h2>Материалы</h2>
-        <div class="material-row" style="flex-direction: column; align-items: center; text-align: center; padding: 32px;">
-            <div style="margin-bottom: 16px;">
-                <div class="material-icon" style="font-size: 2em;">&#128230;</div>
+        <div class="material-row">
+            <div class="material-info">
+                <div class="material-icon">&#128193;</div>
+                <div>
+                    <div class="material-name">fitflow-bare</div>
+                    <div class="material-desc">SQLite-база (107K событий + 1.1K отзывов) без контекста</div>
+                </div>
             </div>
-            <div class="material-name" style="font-size: 1.1em; margin-bottom: 8px;">Всё для практики в одном архиве</div>
-            <div class="material-desc" style="margin-bottom: 20px;">Данные FitFlow (107K событий + 1100 отзывов), описание данных и контекст для AI-агента</div>
-            <a href="fitflow-workshop.zip" class="btn btn-primary" download>&#11015; Скачать fitflow-workshop.zip</a>
+            <a href="https://github.com/Working-in-IT/fitflow-bare" target="_blank" class="btn btn-primary">GitHub</a>
+        </div>
+        <div class="material-row">
+            <div class="material-info">
+                <div class="material-icon">&#128218;</div>
+                <div>
+                    <div class="material-name">fitflow-rich</div>
+                    <div class="material-desc">Та же база + CLAUDE.md, PRODUCT_CONTEXT, словарь данных, 7 скиллов</div>
+                </div>
+            </div>
+            <a href="https://github.com/Working-in-IT/fitflow-rich" target="_blank" class="btn btn-primary">GitHub</a>
+        </div>
+        <div class="material-row">
+            <div class="material-info">
+                <div class="material-icon">&#9881;</div>
+                <div>
+                    <div class="material-name">Подготовка к воркшопу</div>
+                    <div class="material-desc">Python, git, VS Code, Claude Code, smoke test — за 30–45 минут с нуля</div>
+                </div>
+            </div>
+            <a href="setup.html" class="btn btn-primary">Открыть</a>
         </div>
         <div class="material-row">
             <div class="material-info">
                 <div class="material-icon">&#128203;</div>
                 <div>
-                    <div class="material-name">Промпты для заданий</div>
-                    <div class="material-desc">Системный промпт + 3 задания + бонус</div>
+                    <div class="material-name">Промпты для двух демо</div>
+                    <div class="material-desc">Готовые промпты по обоим кейсам — копируешь и вставляешь в Claude Code</div>
                 </div>
             </div>
             <a href="prompts.html" class="btn btn-primary">Открыть</a>
@@ -281,9 +339,9 @@
         <h2>Что <span>подготовить</span></h2>
         <div class="card" style="text-align: center; padding: 32px;">
             <div class="card-icon blue" style="margin: 0 auto 16px;">&#128187;</div>
-            <h3>VS Code + Qwen Code</h3>
-            <p style="margin-bottom: 20px;">Для практики нужен VS Code с расширением Qwen Code — бесплатный AI-агент, который пишет и выполняет код прямо в редакторе.</p>
-            <p style="margin-bottom: 20px; color: var(--orange); font-weight: 600;">&#9888; Установите до мастер-класса — на площадке времени на это не будет</p>
+            <h3>VS Code + Claude Code</h3>
+            <p style="margin-bottom: 20px;">Для практики нужен VS Code с расширением Claude Code и активной подпиской Claude (Pro / Max / Team / Enterprise) или API-доступом. Если в компании есть корпоративный доступ к Claude — спросите у руководителя.</p>
+            <p style="margin-bottom: 20px; color: var(--orange); font-weight: 600;">&#9888; Установите всё до воркшопа — на эфире времени на установку не будет</p>
             <a href="setup.html" class="btn btn-primary">Инструкция по установке</a>
         </div>
     </section>
@@ -291,7 +349,9 @@
 
 <footer>
     <div class="container">
-        <a href="https://github.com/Working-in-IT/agentic-analytics-workshop" target="_blank">GitHub</a> &middot; Working in IT
+        <a href="https://github.com/Working-in-IT/agentic-analytics-workshop" target="_blank">GitHub</a> &middot;
+        <a href="https://t.me/working_in_it" target="_blank">Telegram «Работая в айтишечке»</a> &middot;
+        Working in IT
     </div>
 </footer>
 

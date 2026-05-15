@@ -1,6 +1,6 @@
 # Агентная аналитика для продактов
 
-Материалы мастер-класса по агентной аналитике — как AI-агент формулирует гипотезы, проверяет их кодом, анализирует фидбек пользователей, всё в одном диалоге.
+Материалы воркшопа Podlodka ProductCrew «Агентная аналитика для продактов». Контекст продукта превращает AI-агента из улучшенного ChatGPT в аналитического партнёра — покажем разницу на двух кейсах в двух репозиториях.
 
 ## Сайт
 
@@ -8,42 +8,69 @@
 
 ## Что внутри
 
-- **[Слайды](https://working-in-it.github.io/agentic-analytics-workshop/slides.html)** — интерактивная презентация (reveal.js)
-- **[Промпты для заданий](https://working-in-it.github.io/agentic-analytics-workshop/prompts.html)** — готовые промпты с кнопкой «Копировать»
-- **Датасет FitFlow** — синтетические данные вымышленного фитнес-приложения:
-  - `data/fitflow_events.csv` — 107K продуктовых событий, 3000 пользователей
-  - `data/fitflow_feedback.csv` — 1100 текстовых отзывов на русском языке
-  - `data/fitflow_README.md` — описание данных и метрик
+- **[Главная](https://working-in-it.github.io/agentic-analytics-workshop/index.html)** — что покажем, программа, материалы
+- **[Подготовка](https://working-in-it.github.io/agentic-analytics-workshop/setup.html)** — Python, git, VS Code, Claude Code, smoke test (macOS / Linux / Windows)
+- **[Промпты](https://working-in-it.github.io/agentic-analytics-workshop/prompts.html)** — два промпта для двух демо, готовые к копированию
 
-## Формат мастер-класса (90 мин)
+## Структура воркшопа
+
+Два публичных репо для A/B-контраста:
+
+| Репо | Контекст | Что внутри |
+|------|----------|------------|
+| [**fitflow-bare**](https://github.com/Working-in-IT/fitflow-bare) | минимальный | Только `data/fitflow.db` — без описания продукта, без словаря данных, без скиллов |
+| [**fitflow-rich**](https://github.com/Working-in-IT/fitflow-rich) | богатый | Та же база + CLAUDE.md, PRODUCT_CONTEXT.md, data dictionary, 7 аналитических скиллов |
+
+Датасет одинаковый: SQLite-база FitFlow (вымышленное фитнес-приложение) — 107K событий и 1.1K NPS-отзывов на русском.
+
+## Формат воркшопа (90 мин)
 
 | Часть | Время | Что делаем |
 |-------|-------|------------|
-| Вау-эффект | 20 мин | Живое демо: загружаем данные → агент анализирует → визуализирует → рекомендует |
-| Под капотом | 15 мин | Чем агент отличается от чат-бота, как давать контекст |
-| Практика | 40 мин | 3 задания на ноутбуках участников |
-| Q&A | 10 мин | Вопросы и ссылки |
+| Введение | 15 мин | Что такое агентная аналитика, чем агент отличается от чат-бота, почему контекст — главная инвестиция |
+| Демо 1 — числа | 25 мин | Воронка онбординга: плохой промпт в bare → хороший промпт в bare → тот же вопрос в rich |
+| Демо 2 — текст | 15 мин | Анализ NPS-фидбэка: тот же контраст на другом типе данных |
+| Перенос на свой продукт | 25 мин | Пять шагов: что взять из rich-репо, как описать свой продукт, какие скиллы пригодятся |
+| Q&A | 10 мин | Вопросы, ссылки, как продолжить после воркшопа |
 
 ## Инструмент
 
-Для практики нужен **VS Code** с расширением **[Qwen Code](https://marketplace.visualstudio.com/items?itemName=AlibabaCloud.tongyi-lingma)** — бесплатный AI-агент от Alibaba Cloud.
+**VS Code** с расширением **[Claude Code](https://docs.anthropic.com/en/docs/claude-code)** и активной подпиской Claude (Pro / Max / Team / Enterprise) или API-доступом.
 
-**[Инструкция по установке](https://working-in-it.github.io/agentic-analytics-workshop/setup.html)**
+**[Полная инструкция по установке](https://working-in-it.github.io/agentic-analytics-workshop/setup.html)** — пройдите за день до воркшопа.
 
 ## Быстрый старт
 
-1. Скачайте файлы `fitflow_events.csv` и `fitflow_feedback.csv` из папки `data/`
-2. Откройте Qwen Code в VS Code
-3. Зайдите на [страницу промптов](https://working-in-it.github.io/agentic-analytics-workshop/prompts.html)
-4. Скопируйте системный промпт, вставьте в агент
-5. Загрузите оба CSV-файла
-6. Последовательно отправляйте промпты из заданий
+```bash
+# Установить инструменты (см. setup.html для деталей по ОС)
+brew install python@3.12 git
+brew install --cask visual-studio-code
+code --install-extension anthropic.claude-code
+
+# Склонировать оба репо
+cd ~/Projects
+git clone https://github.com/Working-in-IT/fitflow-bare.git
+git clone https://github.com/Working-in-IT/fitflow-rich.git
+
+# Зависимости для скиллов rich-репо
+cd fitflow-rich
+python3 -m venv .venv && source .venv/bin/activate
+pip install scikit-learn scipy numpy
+```
+
+Дальше — открыть оба репо в VS Code, авторизоваться в Claude Code, [взять промпты](https://working-in-it.github.io/agentic-analytics-workshop/prompts.html) и сравнить ответы.
 
 ## Три принципа агентной аналитики
 
-1. **Контекст решает** — чем лучше описан продукт и цели, тем точнее анализ
-2. **Итерация, не одноразовый запрос** — хороший анализ это диалог из 5–15 сообщений
-3. **Доверяй, но проверяй** — агент может ошибиться, всегда проси показать данные
+1. **Контекст решает** — чем лучше описан продукт и данные, тем точнее анализ. Хороший промпт даёт generic-ответ без контекста; контекст превращает generic в product-grounded.
+2. **A/B-контраст обучает быстрее объяснений** — один промпт в двух репо за 30 минут даёт понимание, на которое уходят дни чтения статей.
+3. **Инвестиция один раз, эффект в каждом запросе** — CLAUDE.md и data/README.md пишутся один раз, дальше агент использует их в каждом анализе.
+
+## Кредиты
+
+- Оригинальные данные FitFlow: [Working-in-IT/agentic-analytics-workshop](https://github.com/Working-in-IT/agentic-analytics-workshop) (прошлая версия)
+- Идея skill-pack для агентов: [nimrodfisher/data-analytics-skills](https://github.com/nimrodfisher/data-analytics-skills) (с атрибуцией)
+- Автор: [Данила Шевцов](https://t.me/working_in_it) / Telegram-канал «Работая в айтишечке»
 
 ---
 

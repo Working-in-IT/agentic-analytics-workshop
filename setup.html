@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Установка Qwen Code — Агентная аналитика</title>
+    <title>Подготовка к воркшопу — Агентная аналитика</title>
     <style>
         :root {
             --bg: #0d1117;
@@ -27,13 +27,14 @@
             line-height: 1.6;
         }
 
-        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 820px; margin: 0 auto; padding: 0 24px; }
 
         header {
             padding: 48px 0 32px;
             border-bottom: 1px solid var(--border);
         }
         header h1 { font-size: 1.8em; margin-bottom: 8px; }
+        header h1 span { color: var(--accent); }
         header p { color: var(--text-muted); margin-top: 8px; }
 
         .back-link {
@@ -46,6 +47,21 @@
             font-size: 0.9em;
         }
         .back-link:hover { text-decoration: underline; }
+
+        /* TL;DR */
+        .tldr {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 24px 0 0;
+            font-size: 0.95em;
+        }
+        .tldr h3 { font-size: 0.9em; color: var(--accent); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .tldr ol { padding-left: 20px; }
+        .tldr li { margin: 6px 0; color: var(--text-muted); }
+        .tldr li strong { color: var(--text); }
 
         /* OS Tabs */
         .tabs {
@@ -85,9 +101,7 @@
         .tab-panel.active { display: block; }
 
         /* Steps */
-        .steps-section {
-            padding: 32px 0;
-        }
+        .steps-section { padding: 32px 0; }
 
         .step {
             display: flex;
@@ -111,7 +125,7 @@
             margin-top: 2px;
         }
 
-        .step-content { flex: 1; }
+        .step-content { flex: 1; min-width: 0; }
 
         .step-content h3 {
             font-size: 1.05em;
@@ -159,8 +173,34 @@
             color: var(--text);
         }
 
-        .step-content .success {
-            border-left-color: var(--green);
+        .step-content .success { border-left-color: var(--green); }
+        .step-content .warn { border-left-color: var(--orange); }
+
+        /* Code blocks */
+        .step-content pre {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px 14px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.85em;
+            line-height: 1.5;
+            color: var(--text);
+            overflow-x: auto;
+            margin-top: 10px;
+            white-space: pre;
+        }
+
+        .step-content pre code { color: var(--text); }
+        .step-content pre .comment { color: var(--text-muted); }
+
+        .step-content code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-size: 0.88em;
         }
 
         /* FAQ */
@@ -228,10 +268,21 @@
         }
         .faq-answer a:hover { text-decoration: underline; }
 
+        .faq-answer code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-size: 0.88em;
+            color: var(--text);
+        }
+
         /* Responsive */
         @media (max-width: 600px) {
             header h1 { font-size: 1.4em; }
             .step { gap: 14px; }
+            .step-content pre { font-size: 0.78em; }
         }
     </style>
 </head>
@@ -240,12 +291,25 @@
 
     <header>
         <a href="index.html" class="back-link">&#8592; На главную</a>
-        <h1>Установка <span style="color: var(--accent);">Qwen Code</span></h1>
-        <p>Настройте бесплатный AI-агент в VS Code за 5 минут</p>
-        <p style="color: var(--orange); font-weight: 600; margin-top: 12px;">&#9888; Пожалуйста, сделайте это до мастер-класса — на площадке времени на установку не будет</p>
+        <h1>Подготовка к <span>воркшопу</span></h1>
+        <p>Установите Python, git, VS Code и Claude Code, склонируйте оба репо и проверьте, что всё работает.</p>
+        <p style="color: var(--orange); font-weight: 600; margin-top: 12px;">&#9888; Пройдите чек-лист за день до воркшопа — на эфире времени на установку не будет</p>
+
+        <div class="tldr">
+            <h3>За 30–45 минут с нуля &middot; 5 минут, если уже всё стоит</h3>
+            <ol>
+                <li><strong>Python 3.11+</strong> — для запуска скиллов rich-репо</li>
+                <li><strong>Git</strong> — чтобы склонировать репозитории</li>
+                <li><strong>VS Code</strong> с расширением <strong>Claude Code</strong></li>
+                <li><strong>Активная подписка Claude</strong> (Pro / Max / Team / Enterprise) или API-доступ</li>
+                <li><strong>Склонированы оба репо</strong> — fitflow-bare и fitflow-rich</li>
+                <li><strong>Smoke test пройден</strong> — Claude отвечает, SQLite-база читается</li>
+            </ol>
+        </div>
 
         <div class="tabs" role="tablist">
             <button class="tab-btn active" role="tab" aria-selected="true" onclick="switchTab('macos', this)">macOS</button>
+            <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('linux', this)">Linux</button>
             <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('windows', this)">Windows</button>
         </div>
     </header>
@@ -257,33 +321,39 @@
             <div class="step">
                 <div class="step-num">1</div>
                 <div class="step-content">
-                    <h3>Установить VS Code</h3>
-                    <p>Скачайте установщик с <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a>.</p>
-                    <p>Откройте скачанный <strong>.dmg</strong>-файл и перетащите иконку VS Code в папку <strong>Applications</strong>.</p>
+                    <h3>Python 3.11+</h3>
+                    <p>Проверьте, что уже стоит:</p>
+                    <pre>python3 --version</pre>
+                    <p style="margin-top: 10px;">Если выводит <code>Python 3.11.x</code> или новее — переходите к шагу 2. Если младше — установите через <a href="https://brew.sh" target="_blank">Homebrew</a>:</p>
+                    <pre><span class="comment"># Установка Homebrew, если его нет</span>
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+<span class="comment"># Установка Python</span>
+brew install python@3.12</pre>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-num">2</div>
                 <div class="step-content">
-                    <h3>Установить расширение Qwen Code</h3>
-                    <p>Откройте VS Code, затем панель расширений: <span class="kbd">Cmd</span> + <span class="kbd">Shift</span> + <span class="kbd">X</span>.</p>
-                    <p>В строке поиска введите <strong>Qwen Code</strong> и нажмите <strong>Install</strong>.</p>
-                    <div class="note">
-                        Или установите напрямую из браузера:<br>
-                        <a href="https://marketplace.visualstudio.com/items?itemName=AlibabaCloud.tongyi-lingma" target="_blank">marketplace.visualstudio.com → Qwen Code (Tongyi Lingma)</a>
-                    </div>
+                    <h3>Git</h3>
+                    <p>Проверка: <code>git --version</code>. Если не установлен:</p>
+                    <pre>brew install git</pre>
+                    <p style="margin-top: 10px;">Альтернатива — Xcode Command Line Tools (включают git):</p>
+                    <pre>xcode-select --install</pre>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-num">3</div>
                 <div class="step-content">
-                    <h3>Войти в аккаунт</h3>
-                    <p>Если у вас ещё нет аккаунта — зарегистрируйтесь на <a href="https://chat.qwen.ai/" target="_blank">chat.qwen.ai</a>.</p>
-                    <p>В VS Code кликните на иконку Qwen Code в боковой панели и нажмите <strong>Sign In</strong>. Откроется браузер — авторизуйтесь через свой аккаунт Qwen Chat.</p>
+                    <h3>VS Code + расширение Claude Code</h3>
+                    <p>Установите VS Code:</p>
+                    <pre>brew install --cask visual-studio-code</pre>
+                    <p style="margin-top: 10px;">Или скачайте с <a href="https://code.visualstudio.com/download" target="_blank">code.visualstudio.com</a>.</p>
+                    <p style="margin-top: 14px;">Откройте VS Code, перейдите в Extensions (<span class="kbd">Cmd</span> + <span class="kbd">Shift</span> + <span class="kbd">X</span>), найдите <strong>Claude Code</strong> от Anthropic и нажмите Install.</p>
                     <div class="note">
-                        <strong>Важно:</strong> после авторизации в браузере вернитесь в VS Code — он подхватит сессию автоматически.
+                        Альтернатива через терминал: <code>code --install-extension anthropic.claude-code</code>
                     </div>
                 </div>
             </div>
@@ -291,11 +361,15 @@
             <div class="step">
                 <div class="step-num">4</div>
                 <div class="step-content">
-                    <h3>Скачать папку воркшопа</h3>
-                    <p>Скачайте <a href="fitflow-workshop.zip" download>fitflow-workshop.zip</a> и распакуйте в удобное место.</p>
-                    <p>Откройте эту папку в VS Code: <strong>File → Open Folder</strong> → выберите распакованную папку.</p>
-                    <div class="note">
-                        В папке уже есть данные для анализа и файл <strong>CLAUDE.md</strong> с контекстом — Qwen Code подхватит его автоматически.
+                    <h3>Доступ к Claude</h3>
+                    <p>Нужна <strong>активная подписка</strong> Claude (Pro / Max / Team / Enterprise) или API-ключ. Оформить подписку: <a href="https://claude.ai/upgrade" target="_blank">claude.ai/upgrade</a>. API-ключ — на <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>.</p>
+                    <p>Откройте панель Claude Code в боковой панели VS Code. При первом запуске:</p>
+                    <ul style="color: var(--text-muted); font-size: 0.93em; padding-left: 20px; margin-top: 8px;">
+                        <li>С подпиской — нажмите <strong>Sign in with Claude</strong></li>
+                        <li>С API-ключом — выберите <strong>Use API key</strong> и вставьте</li>
+                    </ul>
+                    <div class="note warn">
+                        Если в компании уже подключён Claude или Anthropic API — спросите у руководителя про корпоративный доступ, не надо платить из своего кармана.
                     </div>
                 </div>
             </div>
@@ -303,12 +377,152 @@
             <div class="step">
                 <div class="step-num">5</div>
                 <div class="step-content">
-                    <h3>Проверить, что всё работает</h3>
-                    <p>Откройте чат Qwen Code в боковой панели и напишите:</p>
+                    <h3>Клонируйте оба репо</h3>
+                    <p>В терминале выберите папку для проектов и клонируйте оба репозитория:</p>
+                    <pre>cd ~/Projects   <span class="comment"># или любая другая папка</span>
+
+git clone https://github.com/Working-in-IT/fitflow-bare.git
+git clone https://github.com/Working-in-IT/fitflow-rich.git</pre>
+                    <p style="margin-top: 10px;">Если хотите экспериментировать со своими коммитами — сделайте Fork каждого репо на GitHub и склонируйте уже свою копию.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">6</div>
+                <div class="step-content">
+                    <h3>Зависимости для rich-репо</h3>
+                    <p>В rich-репо стоит установить <code>scikit-learn</code> и <code>scipy</code> для скиллов кластеризации фидбэка и стат-тестов. Через <a href="https://docs.astral.sh/uv/" target="_blank">uv</a> (быстро):</p>
+                    <pre><span class="comment"># Установка uv</span>
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+<span class="comment"># Установка зависимостей</span>
+cd ~/Projects/fitflow-rich
+uv venv
+source .venv/bin/activate
+uv pip install scikit-learn scipy numpy</pre>
+                    <p style="margin-top: 10px;">Или через стандартный pip:</p>
+                    <pre>cd ~/Projects/fitflow-rich
+python3 -m venv .venv
+source .venv/bin/activate
+pip install scikit-learn scipy numpy</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">7</div>
+                <div class="step-content">
+                    <h3>Smoke test</h3>
+                    <p>Финальная проверка. Проверяем, что базы данных читаются:</p>
+                    <pre>python3 -c "import sqlite3; print(sqlite3.connect('$HOME/Projects/fitflow-bare/data/fitflow.db').execute('SELECT COUNT(*) FROM events').fetchone())"
+<span class="comment"># Ожидаем: (107185,)</span>
+
+python3 -c "import sqlite3; print(sqlite3.connect('$HOME/Projects/fitflow-rich/data/fitflow.db').execute('SELECT COUNT(*) FROM events').fetchone())"
+<span class="comment"># Ожидаем: (107185,)</span></pre>
+                    <p style="margin-top: 14px;">Откройте <code>fitflow-bare</code> в VS Code, откройте панель Claude Code и отправьте тестовый запрос:</p>
                     <div class="note success">
-                        Привет, напиши print('hello')
+                        Прочитай README.md и опиши в одном предложении, что это за репо.
                     </div>
-                    <p style="margin-top: 10px;">Если агент ответил и предложил код — установка прошла успешно.</p>
+                    <p style="margin-top: 10px;">Если Claude вернул осмысленный ответ за 10–30 секунд — готово. Если запросил подписку или ошибся с балансом — вернитесь к шагу 4.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Linux -->
+    <div id="tab-linux" class="tab-panel">
+        <div class="steps-section">
+
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h3>Python 3.11+</h3>
+                    <p>Проверка: <code>python3 --version</code>. Установка для Ubuntu / Debian:</p>
+                    <pre>sudo apt update
+sudo apt install -y python3 python3-pip python3-venv</pre>
+                    <p style="margin-top: 10px;">Если в стандартных репозиториях Python 3.11+ нет — используйте <a href="https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa" target="_blank">deadsnakes PPA</a>:</p>
+                    <pre>sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install -y python3.12 python3.12-venv</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h3>Git</h3>
+                    <pre>sudo apt install -y git</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h3>VS Code + расширение Claude Code</h3>
+                    <p>Установка VS Code:</p>
+                    <pre>sudo snap install code --classic</pre>
+                    <p style="margin-top: 10px;">Или скачайте .deb / .rpm с <a href="https://code.visualstudio.com/download" target="_blank">code.visualstudio.com</a>.</p>
+                    <p style="margin-top: 14px;">Откройте VS Code, перейдите в Extensions (<span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">X</span>), найдите <strong>Claude Code</strong> от Anthropic и нажмите Install.</p>
+                    <div class="note">
+                        Альтернатива через терминал: <code>code --install-extension anthropic.claude-code</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h3>Доступ к Claude</h3>
+                    <p>Нужна <strong>активная подписка</strong> Claude (Pro / Max / Team / Enterprise) или API-ключ. Оформить подписку: <a href="https://claude.ai/upgrade" target="_blank">claude.ai/upgrade</a>. API-ключ — на <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>.</p>
+                    <p>Откройте панель Claude Code в боковой панели VS Code и пройдите авторизацию (Sign in with Claude или Use API key).</p>
+                    <div class="note warn">
+                        Если в компании уже подключён Claude или Anthropic API — спросите у руководителя про корпоративный доступ.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                    <h3>Клонируйте оба репо</h3>
+                    <pre>cd ~/Projects   <span class="comment"># или любая другая папка</span>
+
+git clone https://github.com/Working-in-IT/fitflow-bare.git
+git clone https://github.com/Working-in-IT/fitflow-rich.git</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">6</div>
+                <div class="step-content">
+                    <h3>Зависимости для rich-репо</h3>
+                    <p>Через <a href="https://docs.astral.sh/uv/" target="_blank">uv</a> (быстро):</p>
+                    <pre>curl -LsSf https://astral.sh/uv/install.sh | sh
+
+cd ~/Projects/fitflow-rich
+uv venv
+source .venv/bin/activate
+uv pip install scikit-learn scipy numpy</pre>
+                    <p style="margin-top: 10px;">Или через стандартный pip:</p>
+                    <pre>cd ~/Projects/fitflow-rich
+python3 -m venv .venv
+source .venv/bin/activate
+pip install scikit-learn scipy numpy</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">7</div>
+                <div class="step-content">
+                    <h3>Smoke test</h3>
+                    <p>Базы данных читаются:</p>
+                    <pre>python3 -c "import sqlite3; print(sqlite3.connect('$HOME/Projects/fitflow-bare/data/fitflow.db').execute('SELECT COUNT(*) FROM events').fetchone())"
+<span class="comment"># Ожидаем: (107185,)</span></pre>
+                    <p style="margin-top: 14px;">Откройте <code>fitflow-bare</code> в VS Code и отправьте Claude тестовый запрос:</p>
+                    <div class="note success">
+                        Прочитай README.md и опиши в одном предложении, что это за репо.
+                    </div>
+                    <p style="margin-top: 10px;">Если Claude ответил — готово.</p>
                 </div>
             </div>
 
@@ -320,60 +534,90 @@
         <div class="steps-section">
 
             <div class="step">
+                <div class="step-num">0</div>
+                <div class="step-content">
+                    <h3>Рекомендация: WSL2</h3>
+                    <p>Самый надёжный путь для Windows — установить <strong>WSL2</strong> (подсистема Linux в Windows) и дальше следовать вкладке <strong>Linux</strong>. Запустите PowerShell от администратора:</p>
+                    <pre>wsl --install -d Ubuntu</pre>
+                    <p style="margin-top: 10px;">После перезагрузки откроется терминал Ubuntu — все команды дальше выполняйте в нём.</p>
+                    <div class="note">
+                        Хотите остаться нативно на Windows? Следуйте шагам ниже.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
                 <div class="step-num">1</div>
                 <div class="step-content">
-                    <h3>Установить VS Code</h3>
-                    <p>Скачайте установщик с <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a>.</p>
-                    <p>Запустите скачанный <strong>.exe</strong>-файл и следуйте инструкциям установщика.</p>
+                    <h3>Python 3.11+</h3>
+                    <p>Через winget:</p>
+                    <pre>winget install Python.Python.3.12</pre>
+                    <p style="margin-top: 10px;">Или скачайте установщик с <a href="https://www.python.org/downloads/" target="_blank">python.org</a>. Обязательно поставьте галочку <strong>Add Python to PATH</strong>.</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-num">2</div>
                 <div class="step-content">
-                    <h3>Установить расширение Qwen Code</h3>
-                    <p>Откройте VS Code, затем панель расширений: <span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">X</span>.</p>
-                    <p>В строке поиска введите <strong>Qwen Code</strong> и нажмите <strong>Install</strong>.</p>
-                    <div class="note">
-                        Или установите напрямую из браузера:<br>
-                        <a href="https://marketplace.visualstudio.com/items?itemName=AlibabaCloud.tongyi-lingma" target="_blank">marketplace.visualstudio.com → Qwen Code (Tongyi Lingma)</a>
-                    </div>
+                    <h3>Git</h3>
+                    <pre>winget install Git.Git</pre>
+                    <p style="margin-top: 10px;">Или скачайте с <a href="https://git-scm.com/download/win" target="_blank">git-scm.com</a>.</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-num">3</div>
                 <div class="step-content">
-                    <h3>Войти в аккаунт</h3>
-                    <p>Если у вас ещё нет аккаунта — зарегистрируйтесь на <a href="https://chat.qwen.ai/" target="_blank">chat.qwen.ai</a>.</p>
-                    <p>В VS Code кликните на иконку Qwen Code в боковой панели и нажмите <strong>Sign In</strong>. Откроется браузер — авторизуйтесь через свой аккаунт Qwen Chat.</p>
-                    <div class="note">
-                        <strong>Важно:</strong> после авторизации в браузере вернитесь в VS Code — он подхватит сессию автоматически.
-                    </div>
+                    <h3>VS Code + расширение Claude Code</h3>
+                    <pre>winget install Microsoft.VisualStudioCode</pre>
+                    <p style="margin-top: 10px;">Или скачайте с <a href="https://code.visualstudio.com/download" target="_blank">code.visualstudio.com</a>.</p>
+                    <p style="margin-top: 14px;">Откройте VS Code, перейдите в Extensions (<span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">X</span>), найдите <strong>Claude Code</strong> и нажмите Install.</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-num">4</div>
                 <div class="step-content">
-                    <h3>Скачать папку воркшопа</h3>
-                    <p>Скачайте <a href="fitflow-workshop.zip" download>fitflow-workshop.zip</a> и распакуйте в удобное место.</p>
-                    <p>Откройте эту папку в VS Code: <strong>File → Open Folder</strong> → выберите распакованную папку.</p>
-                    <div class="note">
-                        В папке уже есть данные для анализа и файл <strong>CLAUDE.md</strong> с контекстом — Qwen Code подхватит его автоматически.
-                    </div>
+                    <h3>Доступ к Claude</h3>
+                    <p>Нужна <strong>активная подписка</strong> Claude (Pro / Max / Team / Enterprise) или API-ключ. Оформить: <a href="https://claude.ai/upgrade" target="_blank">claude.ai/upgrade</a>.</p>
+                    <p>Откройте панель Claude Code и пройдите Sign in.</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-num">5</div>
                 <div class="step-content">
-                    <h3>Проверить, что всё работает</h3>
-                    <p>Откройте чат Qwen Code в боковой панели и напишите:</p>
+                    <h3>Клонируйте оба репо</h3>
+                    <p>В PowerShell или Git Bash:</p>
+                    <pre>cd $env:USERPROFILE\Projects
+
+git clone https://github.com/Working-in-IT/fitflow-bare.git
+git clone https://github.com/Working-in-IT/fitflow-rich.git</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">6</div>
+                <div class="step-content">
+                    <h3>Зависимости для rich-репо</h3>
+                    <pre>cd $env:USERPROFILE\Projects\fitflow-rich
+python -m venv .venv
+.venv\Scripts\activate
+pip install scikit-learn scipy numpy</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">7</div>
+                <div class="step-content">
+                    <h3>Smoke test</h3>
+                    <p>Базы данных читаются:</p>
+                    <pre>python -c "import sqlite3; print(sqlite3.connect('fitflow-bare/data/fitflow.db').execute('SELECT COUNT(*) FROM events').fetchone())"
+<span class="comment"># Ожидаем: (107185,)</span></pre>
+                    <p style="margin-top: 14px;">Откройте <code>fitflow-bare</code> в VS Code и отправьте Claude тестовый запрос:</p>
                     <div class="note success">
-                        Привет, напиши print('hello')
+                        Прочитай README.md и опиши в одном предложении, что это за репо.
                     </div>
-                    <p style="margin-top: 10px;">Если агент ответил и предложил код — установка прошла успешно.</p>
                 </div>
             </div>
 
@@ -386,31 +630,71 @@
 
         <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-                Расширение не находится в поиске
+                <code>python3: command not found</code>
                 <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-                Попробуйте искать по альтернативным названиям: <strong>Qwen Code</strong> или <strong>Tongyi Lingma</strong>. Убедитесь, что у вас актуальная версия VS Code. Если не помогло — установите расширение напрямую через браузер: <a href="https://marketplace.visualstudio.com/items?itemName=AlibabaCloud.tongyi-lingma" target="_blank">ссылка на маркетплейс</a>.
+                Шаг 1 не прошёл. Перезапустите терминал после установки. На macOS попробуйте <code>python3.12</code> вместо <code>python3</code>. На Windows — проверьте галочку Add Python to PATH в установщике.
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-                Не получается авторизоваться
+                Claude Code не появляется в VS Code
                 <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-                Убедитесь, что у вас есть аккаунт на <a href="https://chat.qwen.ai/" target="_blank">chat.qwen.ai</a>. Если браузер открылся, но авторизация не прошла — попробуйте войти в Qwen Chat напрямую в браузере, а затем повторите Sign In из VS Code.
+                Перезапустите VS Code. Проверьте, что расширение включено (Extensions &rarr; Claude Code &rarr; Enable). Убедитесь, что у VS Code актуальная версия.
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-question" onclick="toggleFaq(this)">
-                Агент не отвечает или зависает
+                Claude возвращает <code>Authentication error</code>
                 <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-                Проверьте интернет-соединение. Попробуйте перезапустить VS Code. Если проблема сохраняется — выйдите из аккаунта и войдите заново через Sign In.
+                Шаг 4 — проверьте, что подписка активна или API-ключ скопирован целиком (формат <code>sk-ant-api03-...</code>). Перелогиньтесь в Claude Code: в панели расширения найдите Sign out и пройдите авторизацию заново.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                <code>Rate limit exceeded</code>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                Если на подписке — подождите час или поднимите тариф. Если на API — пополните баланс на <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                <code>ModuleNotFoundError: No module named 'sklearn'</code>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                Шаг 6 — активируйте виртуальное окружение (<code>source .venv/bin/activate</code> на macOS/Linux или <code>.venv\Scripts\activate</code> на Windows) перед запуском скиллов rich-репо.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                SQLite-база не находится
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                Проверьте, что репо склонирован полностью: команда <code>ls fitflow-bare/data/</code> должна показать <code>fitflow.db</code>. Если файла нет — заново склонируйте репо.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+                Claude Code не видит файлы репо
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                В Claude Code убедитесь, что выбрана правильная папка как workspace: File &rarr; Open Folder &rarr; выберите <code>fitflow-bare</code> или <code>fitflow-rich</code>.
             </div>
         </div>
     </div>
