@@ -21,7 +21,7 @@
 | [**fitflow-bare**](https://github.com/Working-in-IT/fitflow-bare) | минимальный | Только `data/fitflow.db` — без описания продукта, без словаря данных, без скиллов |
 | [**fitflow-rich**](https://github.com/Working-in-IT/fitflow-rich) | богатый | Та же база + CLAUDE.md, PRODUCT_CONTEXT.md, data dictionary, 7 аналитических скиллов |
 
-Датасет одинаковый: SQLite-база FitFlow (вымышленное фитнес-приложение) — 107K событий и 1.1K NPS-отзывов на русском.
+Датасет одинаковый: SQLite-база FitFlow (вымышленное фитнес-приложение) — 107K событий и 1.2K feedback-отзывов на русском (~350 из них в NPS-опроснике).
 
 ## Формат воркшопа (90 мин)
 

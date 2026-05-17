@@ -257,7 +257,7 @@
             <div class="demo-title">&#128172; Демо 2 — Анализ NPS-фидбэка</div>
             <div class="demo-meta">2 акта &middot; 15 минут</div>
         </div>
-        <p class="demo-lead">Проверяем тезис на другом типе данных — 231 текстовый отзыв на русском. Тот же контраст: bare vs rich, тот же промпт.</p>
+        <p class="demo-lead">Проверяем тезис на другом типе данных — ~200 NPS-отзывов на русском за квартал. Тот же контраст: bare vs rich, тот же промпт.</p>
 
         <div class="prompt-card bare">
             <div class="prompt-header">
@@ -277,7 +277,7 @@
             </div>
             <div class="prompt-body">Что говорят пользователи в NPS-фидбэке за квартал? Какие темы доминируют, как меняются по неделям, и как они связаны с поведением?</div>
             <div class="prompt-note">
-                <strong>Что ожидать:</strong> агент вызовет скилл <code>product-feedback</code>, получит fitness-специфичные темы («мотивация и срывы», «конфликт с расписанием», «сложность для новичков»). Сделает джойн с events по user_id и покажет, что у пользователей с темой «мотивация» retention ниже на 18 пунктов. Рекомендации привязаны к JTBD и roadmap.
+                <strong>Что ожидать:</strong> агент вызовет скилл <code>product-feedback</code>, прочитает PRODUCT_CONTEXT/BLUEPRINT/KNOWLEDGE_LOG, получит fitness-специфичные темы с retention impact: «pricing/trial» (retention −34pp, avg workouts 2 vs 31), «сложность/подбор» (−13pp, avg workouts −81%, top-3 по объёму), «тех. проблемы» (avg workouts −56%), «позитив» (+34pp). Свяжет «сложность» с KNOWLEDGE_LOG (Beginner Mode уже снизил жалобы 18→7%, но residual продолжает уходить). 3 рекомендации привязаны к BLUEPRINT roadmap: Mood check-in (для сложности — вторая итерация после Beginner Mode), Annual push (для pricing), tech debt sprint.
             </div>
         </div>
     </div>
