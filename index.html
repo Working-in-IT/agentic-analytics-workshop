@@ -84,6 +84,25 @@
         /* Lead paragraph */
         .lead { font-size: 1.05em; color: var(--text-muted); max-width: 720px; }
 
+        /* Video embed */
+        .video-wrap {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+        }
+        .video-wrap iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
         /* Cards grid */
         .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
         .card {
@@ -200,10 +219,24 @@
         <h1><span>Агентная аналитика</span><br>для продактов</h1>
         <p>Контекст продукта превращает AI-агента из улучшенного ChatGPT в аналитического партнёра. Покажем разницу на двух кейсах в двух репозиториях.</p>
         <div class="hero-actions">
-            <a href="setup.html" class="btn btn-primary">&#9881; Подготовка к воркшопу</a>
+            <a href="https://www.youtube.com/watch?v=RK96k3P7ygA" target="_blank" rel="noopener" class="btn btn-primary">&#9654; Смотреть запись</a>
+            <a href="setup.html" class="btn btn-secondary">&#9881; Подготовка к воркшопу</a>
             <a href="prompts.html" class="btn btn-secondary">&#128203; Промпты</a>
         </div>
     </header>
+
+    <section>
+        <h2>Запись <span>воркшопа</span></h2>
+        <p class="lead" style="margin-bottom: 24px;">Полная версия вебинара у Podlodka ProductCrew — оба демо в одном видео. Запускайте параллельно с репозиториями <a href="https://github.com/Working-in-IT/fitflow-bare" target="_blank" rel="noopener">fitflow-bare</a> и <a href="https://github.com/Working-in-IT/fitflow-rich" target="_blank" rel="noopener">fitflow-rich</a>, чтобы повторять шаги вместе с агентом.</p>
+        <div class="video-wrap">
+            <iframe src="https://www.youtube-nocookie.com/embed/RK96k3P7ygA"
+                    title="Агентная аналитика для продактов — запись воркшопа Podlodka ProductCrew"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+        </div>
+    </section>
 
     <section>
         <h2>Что покажем</h2>
@@ -293,6 +326,16 @@
 
     <section>
         <h2>Материалы</h2>
+        <div class="material-row">
+            <div class="material-info">
+                <div class="material-icon">&#9654;</div>
+                <div>
+                    <div class="material-name">Запись вебинара</div>
+                    <div class="material-desc">Полная версия у Podlodka ProductCrew — оба демо в одном видео</div>
+                </div>
+            </div>
+            <a href="https://www.youtube.com/watch?v=RK96k3P7ygA" target="_blank" rel="noopener" class="btn btn-primary">YouTube</a>
+        </div>
         <div class="material-row">
             <div class="material-info">
                 <div class="material-icon">&#128193;</div>
